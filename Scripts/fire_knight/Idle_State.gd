@@ -26,14 +26,9 @@ func _physics_process(delta):
 		
 	if !puppet_master.MoveAxis.is_zero_approx():
 
-		var direction = puppet_master.MoveAxis
+		var direction = puppet_master.MoveAxis.x
 		if direction and player.is_on_floor():
 			player.change_state("move")	
-		
-	
-
-	elif Input.is_action_just_pressed("Defend"):
-		player.change_state("defend")
 
 func onJump():
 	if player.is_on_floor():
