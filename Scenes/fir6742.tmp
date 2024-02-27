@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://d1rjrapwgx66k"]
+[gd_scene load_steps=21 format=3 uid="uid://d1rjrapwgx66k"]
 
-[ext_resource type="Script" path="res://fire_knight/fire_knight.gd" id="1_rrder"]
+[ext_resource type="Script" path="res://Scripts/fire_knight/fire_knight.gd" id="1_rrder"]
 [ext_resource type="Texture2D" uid="uid://bybctm30cqnsr" path="res://Assets/fire_knight/fire_FREE_SpriteSheet_288x128.png" id="2_u6uds"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="3_v72e2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbue"]
 size = Vector2(43.3333, 51.3333)
@@ -537,6 +538,8 @@ shape = SubResource("RectangleShape2D_vdorh")
 libraries = {
 "": SubResource("AnimationLibrary_62ojg")
 }
+
+[node name="NetworkVarSync" parent="." instance=ExtResource("3_v72e2")]
 
 [connection signal="area_entered" from="Sprite2D/AttackHit" to="." method="_on_attack_hit_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

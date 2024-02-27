@@ -11,12 +11,21 @@ config_version=5
 [application]
 
 config/name="Fighting_Game"
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.1", "Mobile")
+run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
+config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
+run/size/viewport_height=648
+run/size/viewport_width=1152
+
+[autoload]
+
+Relayconnect="*res://Scripts/Networking/RELAYCONNECT.gd"
+GameManager="*res://Scripts/Networking/GAME_MANAGER.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/mode=2
 window/size/resizable=false
 window/stretch/mode="canvas_items"

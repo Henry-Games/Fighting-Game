@@ -34,6 +34,7 @@ func change_state(new_state_name):
 	add_child(state)
 
 func _on_animation_player_animation_finished(anim_name):
+	print(anim_name)
 	change_state("idle")
 
 func _on_attack_hit_area_entered(area):

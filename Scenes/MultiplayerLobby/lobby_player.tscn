@@ -337,7 +337,7 @@ disabled = true
 text = "PURPLE"
 
 [node name="NetworkVarSync" parent="." instance=ExtResource("2_2ogvi")]
-instance_file_path = "res://SCENES/LOBBY/lobby_player_customization.tscn"
+instance_file_path = "res://Scenes/MultiplayerLobby/lobby_player.tscn"
 reliable_sync_vars = {
 NodePath("../LineEdit"): ["text"],
 NodePath(".."): ["global_position"]

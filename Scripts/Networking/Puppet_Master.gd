@@ -16,6 +16,10 @@ signal MoveAxisChangedSignal(move_dir : Vector2)
 signal LookAxisChangedSignal(lookDir : Vector2)
 signal MousePositionChangeSignal(mouse_pos : Vector2)
 signal JumpSignal()
+signal AttackSignal()
+signal SpecialSignal()
+signal RollSignal()
+signal DefendSignal()
 signal PlayerNameChangedSignal(new_name)
 var joystick_left_deadzone := 0.2
 var joystick_right_deadzone := 0.2
@@ -25,6 +29,10 @@ var key_bindings_keyboard = {
 	"MOVE UP":"W",
 	"MOVE DOWN":"S",
 	"JUMP":"Space",
+	"ATTACK":"U",
+	"SPECIAL":"I",
+	"DEFEND":"K",
+	"ROLL":"J",
 	"SPAWN PLAYER":"Enter",
 }
 
@@ -131,6 +139,14 @@ func ButtonSignalCall(signalName):
 	match signalName:
 		"JUMP":
 			JumpSignal.emit()
+		"ATTACK":
+			AttackSignal.emit()
+		"DEFEND":
+			DefendSignal.emit()
+		"SPECIAL":
+			SpecialSignal.emit()
+		"ROLL":
+			RollSignal.emit()
 
 #region OnMoveAxisChange
 #####		

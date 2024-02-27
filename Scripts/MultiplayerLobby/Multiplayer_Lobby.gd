@@ -49,7 +49,7 @@ func _process(delta):
 
 func _on_start_game_button_down():
 	Relayconnect.game_started_rpc.rpc_id(0,true)
-	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://SCENES/RaceGame/GAME.tscn",false])
+	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/main.tscn",false])
 
 
 
