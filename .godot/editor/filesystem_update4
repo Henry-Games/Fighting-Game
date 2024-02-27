@@ -1,2 +1,2 @@
-res://Scenes/MainMenu/MainMenu.tscn
-res://Scenes/Networking/room_code_display.tscn
+res://main.tscn
+res://fire_knight.tscn
