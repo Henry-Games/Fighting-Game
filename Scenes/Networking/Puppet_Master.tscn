@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://df2f61y7ovpxs"]
+
+[ext_resource type="Script" path="res://Scripts/Networking/Puppet_Master.gd" id="1_ppaoh"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="2_ghhjx"]
+
+[node name="PuppetMaster" type="Node2D"]
+script = ExtResource("1_ppaoh")
+
+[node name="NetworkVarSync" parent="." instance=ExtResource("2_ghhjx")]
+instance_file_path = "res://SCENES/NETWORKING/Puppet_Master.tscn"
+reliable_sync_vars = {
+NodePath(".."): ["player_name"]
+}
+unreliable_sync_vars = {
+NodePath(".."): ["MousePos", "MoveAxis"]
+}
+is_local_authority = true

@@ -1,0 +1,26 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Fighting Game"
+run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Relayconnect="*res://Scripts/Networking/RELAYCONNECT.gd"
+GameManager="*res://Scripts/Networking/GAME_MANAGER.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080

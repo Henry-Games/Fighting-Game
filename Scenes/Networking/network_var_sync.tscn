@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://igx155esedds"]
+
+[ext_resource type="Script" path="res://Scripts/Networking/network_var_sync.gd" id="1_mvjv6"]
+
+[node name="NetworkVarSync" type="Node2D"]
+script = ExtResource("1_mvjv6")

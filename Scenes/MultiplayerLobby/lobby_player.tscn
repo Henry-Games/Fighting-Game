@@ -1,0 +1,369 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1fh86p7r8kxm"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/lobby_player.gd" id="1_f0jbx"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="2_2ogvi"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("lineEdit", "alphabet_grid", "colour_grid", "disconnect_button", "TYPE_HERE_LABEL", "prior_button", "selected_button")]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -906.0
+offset_bottom = -367.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f0jbx")
+lineEdit = NodePath("LineEdit")
+alphabet_grid = NodePath("Keyboard")
+colour_grid = NodePath("ColourSelect")
+disconnect_button = NodePath("Disconnect_Button")
+TYPE_HERE_LABEL = NodePath("TypeHere")
+prior_button = NodePath("Keyboard/A")
+selected_button = NodePath("Keyboard/A")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_right = 243.0
+offset_bottom = 31.0
+
+[node name="Keyboard" type="FlowContainer" parent="."]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 153.0
+offset_bottom = 232.0
+
+[node name="A" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../ColourSelect/BLUE")
+focus_neighbor_top = NodePath("../Y")
+focus_neighbor_right = NodePath("../B")
+focus_neighbor_bottom = NodePath("../E")
+text = "A"
+
+[node name="B" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../A")
+focus_neighbor_top = NodePath("../Z")
+focus_neighbor_right = NodePath("../C")
+focus_neighbor_bottom = NodePath("../F")
+disabled = true
+text = "B"
+
+[node name="C" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../B")
+focus_neighbor_top = NodePath("../BACK")
+focus_neighbor_right = NodePath("../D")
+focus_neighbor_bottom = NodePath("../G")
+disabled = true
+text = "C"
+
+[node name="D" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../C")
+focus_neighbor_top = NodePath("../BACK")
+focus_neighbor_right = NodePath("../../ColourSelect/RED")
+focus_neighbor_bottom = NodePath("../H")
+disabled = true
+text = "D"
+
+[node name="E" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../ColourSelect/PURPLE")
+focus_neighbor_top = NodePath("../A")
+focus_neighbor_right = NodePath("../F")
+focus_neighbor_bottom = NodePath("../I")
+disabled = true
+text = "E"
+
+[node name="F" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../E")
+focus_neighbor_top = NodePath("../B")
+focus_neighbor_right = NodePath("../G")
+focus_neighbor_bottom = NodePath("../J")
+disabled = true
+text = "F"
+
+[node name="G" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../F")
+focus_neighbor_top = NodePath("../C")
+focus_neighbor_right = NodePath("../H")
+focus_neighbor_bottom = NodePath("../K")
+disabled = true
+text = "G"
+
+[node name="H" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../G")
+focus_neighbor_top = NodePath("../D")
+focus_neighbor_right = NodePath("../../ColourSelect/PURPLE")
+focus_neighbor_bottom = NodePath("../L")
+disabled = true
+text = "H"
+
+[node name="I" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../L")
+focus_neighbor_top = NodePath("../E")
+focus_neighbor_right = NodePath("../J")
+focus_neighbor_bottom = NodePath("../M")
+disabled = true
+text = "I"
+
+[node name="J" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../I")
+focus_neighbor_top = NodePath("../F")
+focus_neighbor_right = NodePath("../K")
+focus_neighbor_bottom = NodePath("../N")
+disabled = true
+text = "J"
+
+[node name="K" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../J")
+focus_neighbor_top = NodePath("../G")
+focus_neighbor_right = NodePath("../L")
+focus_neighbor_bottom = NodePath("../O")
+disabled = true
+text = "K"
+
+[node name="L" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../K")
+focus_neighbor_top = NodePath("../H")
+focus_neighbor_right = NodePath("../I")
+focus_neighbor_bottom = NodePath("../P")
+disabled = true
+text = "L"
+
+[node name="M" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../P")
+focus_neighbor_top = NodePath("../I")
+focus_neighbor_right = NodePath("../N")
+focus_neighbor_bottom = NodePath("../Q")
+disabled = true
+text = "M"
+
+[node name="N" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../M")
+focus_neighbor_top = NodePath("../J")
+focus_neighbor_right = NodePath("../O")
+focus_neighbor_bottom = NodePath("../R")
+disabled = true
+text = "N"
+
+[node name="O" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../N")
+focus_neighbor_top = NodePath("../K")
+focus_neighbor_right = NodePath("../P")
+focus_neighbor_bottom = NodePath("../S")
+disabled = true
+text = "O"
+
+[node name="P" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../O")
+focus_neighbor_top = NodePath("../L")
+focus_neighbor_right = NodePath("../M")
+focus_neighbor_bottom = NodePath("../T")
+disabled = true
+text = "P"
+
+[node name="Q" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../T")
+focus_neighbor_top = NodePath("../M")
+focus_neighbor_right = NodePath("../R")
+focus_neighbor_bottom = NodePath("../U")
+disabled = true
+text = "Q"
+
+[node name="R" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../N")
+focus_neighbor_right = NodePath("../S")
+focus_neighbor_bottom = NodePath("../V")
+disabled = true
+text = "R"
+
+[node name="S" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../R")
+focus_neighbor_top = NodePath("../O")
+focus_neighbor_right = NodePath("../T")
+focus_neighbor_bottom = NodePath("../W")
+disabled = true
+text = "S"
+
+[node name="T" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../S")
+focus_neighbor_top = NodePath("../P")
+focus_neighbor_right = NodePath("../Q")
+focus_neighbor_bottom = NodePath("../X")
+disabled = true
+text = "T"
+
+[node name="U" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../X")
+focus_neighbor_top = NodePath("../Q")
+focus_neighbor_right = NodePath("../V")
+focus_neighbor_bottom = NodePath("../Y")
+disabled = true
+text = "U"
+
+[node name="V" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../U")
+focus_neighbor_top = NodePath("../R")
+focus_neighbor_right = NodePath("../W")
+focus_neighbor_bottom = NodePath("../Z")
+disabled = true
+text = "V"
+
+[node name="W" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../V")
+focus_neighbor_top = NodePath("../S")
+focus_neighbor_right = NodePath("../X")
+focus_neighbor_bottom = NodePath("../BACK")
+disabled = true
+text = "W"
+
+[node name="X" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../W")
+focus_neighbor_top = NodePath("../T")
+focus_neighbor_right = NodePath("../U")
+focus_neighbor_bottom = NodePath("../BACK")
+disabled = true
+text = "X"
+
+[node name="Y" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Disconnect_Button")
+focus_neighbor_top = NodePath("../U")
+focus_neighbor_right = NodePath("../Z")
+focus_neighbor_bottom = NodePath("../A")
+disabled = true
+text = "Y"
+
+[node name="Z" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Y")
+focus_neighbor_top = NodePath("../V")
+focus_neighbor_right = NodePath("../BACK")
+focus_neighbor_bottom = NodePath("../B")
+disabled = true
+text = "Z"
+
+[node name="BACK" type="Button" parent="Keyboard"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Z")
+focus_neighbor_top = NodePath("../W")
+focus_neighbor_right = NodePath("../../Disconnect_Button")
+focus_neighbor_bottom = NodePath("../C")
+disabled = true
+text = "BACK"
+
+[node name="ColourSelect" type="FlowContainer" parent="."]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 32.0
+offset_right = 240.0
+offset_bottom = 265.0
+
+[node name="RED" type="Button" parent="ColourSelect"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Keyboard/D")
+focus_neighbor_top = NodePath("../../Disconnect_Button")
+focus_neighbor_right = NodePath("../BLUE")
+focus_neighbor_bottom = NodePath("../PURPLE")
+disabled = true
+text = "RED"
+
+[node name="BLUE" type="Button" parent="ColourSelect"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../RED")
+focus_neighbor_top = NodePath("../../Disconnect_Button")
+focus_neighbor_right = NodePath("../../Keyboard/A")
+focus_neighbor_bottom = NodePath("../PURPLE")
+disabled = true
+text = "BLUE"
+
+[node name="PURPLE" type="Button" parent="ColourSelect"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Keyboard/H")
+focus_neighbor_top = NodePath("../RED")
+focus_neighbor_right = NodePath("../../Keyboard/E")
+focus_neighbor_bottom = NodePath("../../Disconnect_Button")
+disabled = true
+text = "PURPLE"
+
+[node name="NetworkVarSync" parent="." instance=ExtResource("2_2ogvi")]
+instance_file_path = "res://SCENES/LOBBY/lobby_player_customization.tscn"
+reliable_sync_vars = {
+NodePath("../LineEdit"): ["text"],
+NodePath(".."): ["global_position"]
+}
+is_local_authority = true
+
+[node name="TypeHere" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 33.0
+offset_right = 138.0
+offset_bottom = 73.0
+
+[node name="Disconnect_Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 236.0
+offset_right = 254.0
+offset_bottom = 267.0
+focus_neighbor_left = NodePath("../Keyboard/BACK")
+focus_neighbor_top = NodePath("../ColourSelect/PURPLE")
+focus_neighbor_right = NodePath("../Keyboard/Y")
+focus_neighbor_bottom = NodePath("../ColourSelect/RED")
+disabled = true
+button_mask = 0
+text = "DISCONNECT"
+
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Disconnect_Button" to="." method="_on_disconnect_button_button_down"]

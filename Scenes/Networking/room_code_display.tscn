@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cndhnvf80jorl"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/RoomCodeDisplay.gd" id="1_50tcv"]
+
+[node name="RoomCodeDisplay" type="RichTextLabel"]
+offset_left = 268.0
+offset_top = 173.0
+offset_right = 485.0
+offset_bottom = 213.0
+text = "ROOM CODE : "
+script = ExtResource("1_50tcv")
