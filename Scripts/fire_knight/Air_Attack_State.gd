@@ -4,7 +4,7 @@ var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Enter Air Attack State")
+	#print("Enter Air Attack State")
 	player = get_parent()
 	
 	player.animation.play("air_attack", -1, 1.25)
@@ -19,4 +19,4 @@ func _physics_process(delta):
 
 func exit():
 	player.was_in_air = true
-	print("Exit Air Attack State")
+	#print("Exit Air Attack State")

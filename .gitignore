@@ -8,3 +8,5 @@ export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
+.godot/editor/editor_layout.cfg
+.godot/editor/editor_layout.cfg

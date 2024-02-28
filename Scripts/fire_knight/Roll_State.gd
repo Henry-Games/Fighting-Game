@@ -5,7 +5,7 @@ var is_left
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Enter Roll State")
+	#print("Enter Roll State")
 	player = get_parent()
 	
 	player.animation.play("roll",-1,1.5)
@@ -21,4 +21,5 @@ func _physics_process(delta):
 	pass
 
 func exit():
-	print("Exit Roll State")
+	pass
+	#print("Exit Roll State")
