@@ -4,7 +4,7 @@ var player
 var puppet_master
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Enter Jump State")
+	#print("Enter Jump State")
 	player = get_parent()
 	puppet_master = player.get_parent()
 	puppet_master.AttackSignal.connect(onAttack)
@@ -28,4 +28,4 @@ func onAttack():
 
 func exit():
 	player.was_in_air = true
-	print("Exit Jump State")
+	#print("Exit Jump State")

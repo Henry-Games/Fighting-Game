@@ -4,11 +4,10 @@ var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Enter SpAttack State")
+	#print("Enter SpAttack State")
 	player = get_parent()
 	
 	player.animation.play("sp_attack", -1, 1.25)
-	print(player.animation.assigned_animation)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,4 +15,5 @@ func _physics_process(delta):
 	player.velocity.x = move_toward(player.velocity.x, 0, 15)
 
 func exit():
-	print("Exit SpAttack State")
+	pass
+	#print("Exit SpAttack State")

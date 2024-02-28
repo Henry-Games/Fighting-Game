@@ -5,6 +5,7 @@ var puppet_master
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("Enter Move State")
+	
 	player = get_parent()
 	puppet_master = player.get_parent()
 	puppet_master.JumpSignal.connect(onJump)
@@ -22,8 +23,15 @@ func _physics_process(delta):
 	if not direction:
 		player.change_state("idle")
 	else:
-		var is_left = player.velocity.x < 0
-		player.sprite_2d.flip_h = is_left
+		#var is_left = player.velocity.x < 0
+		#player.sprite_2d.flip_h = is_left
+
+		player.scale.y = sign(puppet_master.MoveAxis.x) * 1.5
+		if sign(puppet_master.MoveAxis.x) == -1:
+			player.global_rotation_degrees = 180
+		else:
+			player.global_rotation_degrees = 0
+			
 		player.velocity.x = direction * player.SPEED
 
 	
@@ -49,4 +57,5 @@ func onDefend():
 	player.change_state("defend")
 
 func exit():
-	print("Exit Move State")
+	pass
+	#print("Exit Move State")
