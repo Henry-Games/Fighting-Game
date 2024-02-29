@@ -4,7 +4,7 @@ var player
 var puppet_master
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Enter Move State")
+	#print("Enter Move State")
 	
 	player = get_parent()
 	puppet_master = player.get_parent()

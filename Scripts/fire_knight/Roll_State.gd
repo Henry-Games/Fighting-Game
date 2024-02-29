@@ -9,7 +9,7 @@ func _ready():
 	player = get_parent()
 	
 	player.animation.play("roll",-1,1.5)
-	if player.sprite_2d.flip_h:
+	if player.scale.y < 0:
 		is_left = -1
 	else:
 		is_left = 1

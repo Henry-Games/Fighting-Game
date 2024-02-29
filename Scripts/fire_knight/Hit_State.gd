@@ -1,19 +1,17 @@
 extends State
-class_name Attack3_State
+class_name Hit_State
 var player
+var is_left
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#print("Enter Attack3 State")
 	player = get_parent()
-	player.damage = 10
-	player.knockback = 2
-	player.animation.play("attack3", -1, 1.25)
-
+	player.animation.play("hit",-1,1.5)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	player.velocity.x = move_toward(player.velocity.x, 0, 15)
+	player.velocity.x = move_toward(player.velocity.x, 0, 25)
+	pass
 
 func exit():
 	pass
-	#print("Exit Attack3 State")
+	#print("Exit Roll State")
