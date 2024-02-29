@@ -19,23 +19,29 @@ var IS_HOST := false;
 var HOST_ID := 0;
 var CHARS := "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
+var IS_LOCAL_HOST = false
+var joining_local_host = false
+var local_relay_server_pid = -1
+var typed_local_address = ""
 ## Supplementary functions	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.connection_failed.connect(_on_connected_fail)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	connect_to_relay_server("127.0.0.1")
+
+func connect_to_relay_server(ip : String):
 	var relay_connect = ENetMultiplayerPeer.new()
-	var error = relay_connect.create_client("127.0.0.1",25566)
+	var error = relay_connect.create_client(ip,25566)
 	if error:
 		return(error)
 		
 	multiplayer.multiplayer_peer = relay_connect
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	multiplayer.connection_failed.connect(_on_connected_fail)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	
 	NetworkTicker()
-	
 
-	
-		
 func NetworkTicker():
 	var unix_time_with_ms = Time.get_unix_time_from_system() * 1000 
 	var formattedTime = floorf(unix_time_with_ms/200) * 200
@@ -47,10 +53,15 @@ func _on_connected_to_server():
 	_resgister_player.rpc_id(0)
 	connected = true
 	ON_RELAY_SERVER_CONNECT.emit()
+	if joining_local_host:
+		join()
+	
+	joining_local_host = false
 
 func _on_connected_fail():
 	connected = false
 	ON_RELAY_SERVER_FAIL.emit()
+	joining_local_host = false
 
 func _on_server_disconnected():
 	connected = false
@@ -150,6 +161,18 @@ func sync_room_data_rpc(room_data : Dictionary):
 func game_started_rpc(started : bool):
 	pass
 
+
+func local_host():
+	var object_to_spawn = load("res://Scenes/Networking/RelayServer.tscn") as PackedScene
+	var object_instance = object_to_spawn.instantiate() 
+	get_tree().root.add_child(object_instance)
+	IS_LOCAL_HOST = true
+	connect_to_relay_server("127.0.0.1")
+
+func local_join():
+	connect_to_relay_server(typed_local_address)
+	joining_local_host = true
+	
 func call_rpc_room(rpc_function : Callable, args : Array, call_self : bool = true):
 	if !ROOM_DATA.has("players") or multiplayer.multiplayer_peer.get_connection_status() != 2:
 		return

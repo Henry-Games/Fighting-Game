@@ -21,10 +21,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 49.5
-offset_top = -68.0
-offset_right = 100.5
-offset_bottom = -37.0
+offset_left = 281.0
+offset_top = -57.0
+offset_right = 332.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
@@ -37,28 +37,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 56.5
-offset_top = -25.5
-offset_right = 99.5
-offset_bottom = 5.5
+offset_left = 288.0
+offset_top = -14.5
+offset_right = 331.0
+offset_bottom = 16.5
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
 text = "JOIN"
 
-[node name="LineEdit" type="LineEdit" parent="Control"]
+[node name="NormalJoinLineEdit" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.5
-offset_top = 22.0
-offset_right = 115.563
-offset_bottom = 53.0
+offset_left = 259.0
+offset_top = 35.0
+offset_right = 372.0
+offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
+placeholder_text = "Room Code"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control"]
 layout_mode = 0
@@ -68,9 +69,46 @@ offset_right = 725.0
 offset_bottom = 93.0
 text = "CONNECTING"
 
+[node name="Local Host" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 483.0
+offset_right = 870.0
+offset_bottom = 514.0
+text = "Local Host
+"
+
+[node name="Local Join" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 521.0
+offset_right = 875.0
+offset_bottom = 552.0
+text = "Local Join"
+
+[node name="LocalIp" type="LineEdit" parent="Control"]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 560.0
+offset_right = 939.0
+offset_bottom = 591.0
+placeholder_text = "Address"
+
+[node name="LocalRoomCode" type="LineEdit" parent="Control"]
+layout_mode = 0
+offset_left = 786.0
+offset_top = 596.0
+offset_right = 897.0
+offset_bottom = 627.0
+placeholder_text = "Room Code"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
 [connection signal="button_down" from="Control/HOST" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Control/JOIN" to="." method="_on_join_button_down"]
-[connection signal="text_changed" from="Control/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Control/NormalJoinLineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Control/Local Host" to="." method="_on_local_host_button_down"]
+[connection signal="button_down" from="Control/Local Join" to="." method="_on_local_join_button_down"]
+[connection signal="text_changed" from="Control/LocalIp" to="." method="_on_local_ip_text_changed"]
+[connection signal="text_changed" from="Control/LocalRoomCode" to="." method="_on_local_room_code_text_changed"]

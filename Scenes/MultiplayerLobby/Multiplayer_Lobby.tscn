@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cglna433cd3s0"]
+[gd_scene load_steps=4 format=3 uid="uid://cglna433cd3s0"]
 
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
 [ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/room_code_display.tscn" id="2_tikey"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/Networking/ip_address_display.tscn" id="3_7sipt"]
 
-[node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("StartGameButton")]
+[node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("StartGameButton", "IpAddressText")]
 script = ExtResource("1_qmw6p")
 StartGameButton = NodePath("StartGame")
+IpAddressText = NodePath("IpAddressDisplay")
 
 [node name="StartGame" type="Button" parent="."]
 anchors_preset = 2
@@ -35,6 +37,12 @@ offset_right = 1129.0
 offset_bottom = 652.0
 text = "LEAVE
 "
+
+[node name="IpAddressDisplay" parent="." instance=ExtResource("3_7sipt")]
+offset_left = 907.0
+offset_top = 506.0
+offset_right = 1274.0
+offset_bottom = 531.0
 
 [connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
 [connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]

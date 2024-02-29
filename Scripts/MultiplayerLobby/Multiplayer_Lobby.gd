@@ -1,8 +1,9 @@
 extends Node2D
 @export var StartGameButton:Button
+@export var IpAddressText:RichTextLabel
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	IpAddressText.visible = Relayconnect.IS_LOCAL_HOST
 	GameManager.spawn_puppet_masters()
 	GameManager.SPAWN_PUPPET_SIGNAL.connect(spawn_lobby_player)
 	if Relayconnect.IS_HOST:
