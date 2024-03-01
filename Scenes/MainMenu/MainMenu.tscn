@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlgmqilr5i5k5"]
+[gd_scene load_steps=3 format=3 uid="uid://dlgmqilr5i5k5"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.gd" id="1_qotqr"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/Local Join.gd" id="2_npxjh"]
 
 [node name="Lobby" type="Node2D" node_paths=PackedStringArray("JOIN_BUTTON", "HOST_BUTTON", "MessageLabel")]
 script = ExtResource("1_qotqr")
@@ -78,29 +79,13 @@ offset_bottom = 514.0
 text = "Local Host
 "
 
-[node name="Local Join" type="Button" parent="Control"]
+[node name="Local Join" type="FlowContainer" parent="Control"]
 layout_mode = 0
-offset_left = 778.0
-offset_top = 521.0
-offset_right = 875.0
-offset_bottom = 552.0
-text = "Local Join"
-
-[node name="LocalIp" type="LineEdit" parent="Control"]
-layout_mode = 0
-offset_left = 736.0
-offset_top = 560.0
-offset_right = 939.0
-offset_bottom = 591.0
-placeholder_text = "Address"
-
-[node name="LocalRoomCode" type="LineEdit" parent="Control"]
-layout_mode = 0
-offset_left = 786.0
-offset_top = 596.0
-offset_right = 897.0
-offset_bottom = 627.0
-placeholder_text = "Room Code"
+offset_left = 747.0
+offset_top = 523.0
+offset_right = 923.0
+offset_bottom = 916.0
+script = ExtResource("2_npxjh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
@@ -109,6 +94,3 @@ position = Vector2(960, 540)
 [connection signal="button_down" from="Control/JOIN" to="." method="_on_join_button_down"]
 [connection signal="text_changed" from="Control/NormalJoinLineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="button_down" from="Control/Local Host" to="." method="_on_local_host_button_down"]
-[connection signal="button_down" from="Control/Local Join" to="." method="_on_local_join_button_down"]
-[connection signal="text_changed" from="Control/LocalIp" to="." method="_on_local_ip_text_changed"]
-[connection signal="text_changed" from="Control/LocalRoomCode" to="." method="_on_local_room_code_text_changed"]

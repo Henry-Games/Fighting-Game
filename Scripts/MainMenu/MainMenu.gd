@@ -7,6 +7,7 @@ extends Node2D
 
 
 func _ready():
+	
 	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
 	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
 	Relayconnect.HOST_SUCCESS.connect(_on_host_success)
@@ -56,11 +57,6 @@ func _on_line_edit_text_changed(new_text):
 
 func _on_local_host_button_down():
 	Relayconnect.local_host()
-
-
-
-func _on_local_join_button_down():
-	Relayconnect.local_join()
 
 
 func _on_local_room_code_text_changed(new_text):

@@ -163,14 +163,15 @@ func game_started_rpc(started : bool):
 
 
 func local_host():
+	IS_LOCAL_HOST = true
 	var object_to_spawn = load("res://Scenes/Networking/RelayServer.tscn") as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
 	get_tree().root.add_child(object_instance)
-	IS_LOCAL_HOST = true
 	connect_to_relay_server("127.0.0.1")
 
-func local_join():
-	connect_to_relay_server(typed_local_address)
+func local_join(ip,room_code):
+	connect_to_relay_server(ip)
+	typed_room_code = room_code
 	joining_local_host = true
 	
 func call_rpc_room(rpc_function : Callable, args : Array, call_self : bool = true):
