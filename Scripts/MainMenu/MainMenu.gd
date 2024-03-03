@@ -8,6 +8,7 @@ extends Node2D
 
 func _ready():
 	
+
 	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
 	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
 	Relayconnect.HOST_SUCCESS.connect(_on_host_success)

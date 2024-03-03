@@ -70,6 +70,7 @@ func _on_server_disconnected():
 	ROOM_CODE = ""
 	IS_HOST = false
 	HOST_ID = 0
+	joining_local_host = false
 	
 func host():
 	if multiplayer.multiplayer_peer.CONNECTION_CONNECTED:
@@ -139,6 +140,10 @@ func player_disconnect_room(player_disconnecting_id):
 
 @rpc("authority","call_remote","reliable")
 func room_closed():
+	var relay_server = get_node("/root/RelayServer")
+	if relay_server:
+		relay_server.queue_free()
+		
 	ROOM_DATA = {}
 	GameManager.objects_to_sync = {}
 	for child in GameManager.get_children():
