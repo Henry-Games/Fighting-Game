@@ -15,7 +15,6 @@ var state_machine
 var was_in_air = false
 func _ready():
 
-	
 	state_machine = State_Machine.new()
 	change_state("idle")
 
