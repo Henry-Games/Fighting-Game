@@ -17,3 +17,8 @@ func _process(delta):
 func _on_join_button_button_down():
 	Relayconnect.local_join(ip,room_code)
 	pass # Replace with function body.
+
+
+func _on_timer_timeout():
+	queue_free()
+	pass # Replace with function body.

@@ -29,7 +29,7 @@ func _process(delta):
 		for child in get_children():
 			child.queue_free()
 				
-		var object_to_spawn = load("res://Scenes/MainMenu/LocalJoin.tscn") as PackedScene
+		var object_to_spawn = load("res://Scenes/MainMenu/local_join_button.tscn") as PackedScene
 		var object_instance = object_to_spawn.instantiate()
 		object_instance.ip = udp_network.get_packet_ip()
 		object_instance.room_code = new_server_room_code 

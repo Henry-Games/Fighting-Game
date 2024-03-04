@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlgmqilr5i5k5"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.gd" id="1_qotqr"]
-[ext_resource type="Script" path="res://Scenes/MainMenu/Local Join.gd" id="2_npxjh"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/LocalJoinReceiver.gd" id="2_npxjh"]
 
 [node name="Lobby" type="Node2D" node_paths=PackedStringArray("JOIN_BUTTON", "HOST_BUTTON", "MessageLabel")]
 script = ExtResource("1_qotqr")

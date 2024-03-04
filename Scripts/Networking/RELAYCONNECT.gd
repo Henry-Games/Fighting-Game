@@ -32,11 +32,13 @@ func _ready():
 
 # Starts connecting to relay server, could be any - Local or Remote
 func connect_to_relay_server(ip : String):
+
 	var relay_connect = ENetMultiplayerPeer.new()
 	var error = relay_connect.create_client(ip,25566)
+
 	if error:
-		return(error)
-		
+		return(error_string(error))
+
 	multiplayer.multiplayer_peer = relay_connect
 	
 # When connected to relay server register player to the database and emit connection signal
@@ -45,6 +47,8 @@ func _on_connected_to_server():
 	connected = true
 	ON_RELAY_SERVER_CONNECT.emit()
 	
+	if IS_LOCAL_HOST:
+		host()
 	# Instantly join selected local room if joining through local broadcast
 	if joining_local_host:
 		join()
@@ -59,7 +63,6 @@ func _on_connected_fail():
 	connected = false
 	ON_RELAY_SERVER_FAIL.emit()
 	
-	joining_local_host = false
 
 # if relay server disconncets Return to main menu and reset important values to default
 func _on_server_disconnected():
@@ -69,6 +72,7 @@ func _on_server_disconnected():
 	ROOM_DATA = {}
 	ROOM_CODE = ""
 	IS_HOST = false
+	IS_LOCAL_HOST = false
 	HOST_ID = 0
 	joining_local_host = false
 	
@@ -153,7 +157,7 @@ func player_disconnect_room(player_disconnecting_id):
 @rpc("authority","call_remote","reliable")
 func room_closed():
 	# if was locally hosting destroy the relay server running
-	var relay_server = get_node("/root/RelayServer")
+	var relay_server = get_node_or_null("/root/RelayServer")
 	if relay_server:
 		relay_server.queue_free()
 		
@@ -179,6 +183,7 @@ func game_started_rpc(started : bool):
 
 # When local hosting create relay server and connect to self
 func local_host():
+	
 	IS_LOCAL_HOST = true
 	var object_to_spawn = load("res://Scenes/Networking/RelayServer.tscn") as PackedScene
 	var object_instance = object_to_spawn.instantiate() 

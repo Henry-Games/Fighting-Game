@@ -8,7 +8,7 @@ extends Node2D
 
 func _ready():
 	
-
+	Relayconnect.connect_to_relay_server("192.168.1.1")
 	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
 	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
 	Relayconnect.HOST_SUCCESS.connect(_on_host_success)
@@ -19,7 +19,7 @@ func _ready():
 		_on_relay_server_connect()
 	
 	# Place the relay server IP
-	Relayconnect.connect_to_relay_server("199.999.999.999")
+	
 
 
 	
@@ -40,9 +40,7 @@ func _on_join_fail(error_message):
 	print("JOIN FAIL")
 
 func _on_relay_server_connect():
-	if Relayconnect.IS_LOCAL_HOST:
-		Relayconnect.host()
-	else:
+	if !Relayconnect.IS_LOCAL_HOST:
 		MessageLabel.text = ""
 		JOIN_BUTTON.disabled = false
 		HOST_BUTTON.disabled = false
