@@ -9,7 +9,7 @@ var _broadcast_timer = 0
 func _ready():
 	udp_network = PacketPeerUDP.new()
 	
-	
+	#connect to multicast address
 	udp_network.connect_to_host("224.0.0.0",server_broadcasting_udp_port)
 	
 
@@ -17,7 +17,6 @@ func _ready():
 func _process(delta):
 	_broadcast_timer -= delta
 	if _broadcast_timer <= 0:
-		text = "SENDING PACKET"
 		_broadcast_timer = UDP_BROADCAST_FREQUENCY
 		var stg = Relayconnect.ROOM_CODE
 		var error = udp_network.put_packet(stg.to_ascii_buffer())

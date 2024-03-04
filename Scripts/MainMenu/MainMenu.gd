@@ -17,6 +17,9 @@ func _ready():
 	Relayconnect.ON_RELAY_SERVER_CONNECT.connect(_on_relay_server_connect)
 	if Relayconnect.connected:
 		_on_relay_server_connect()
+	
+	# Place the relay server IP
+	Relayconnect.connect_to_relay_server("199.999.999.999")
 
 
 	

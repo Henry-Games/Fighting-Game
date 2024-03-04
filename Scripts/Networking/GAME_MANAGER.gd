@@ -2,14 +2,19 @@ extends Node2D
 
 var host_started = false
 
+#Objects to sync dictionary, mainly to make sure network ids dont double up
 var objects_to_sync = {}
+# Stores current scene for replication on player join
+var current_scene
+# Store all current controller puppet masters : TODO replace with groups instead
 var controller_puppet_masters = {}
+# Characters for ObjectSyncIDs add more if needed
 var CHARS = "1234567890";
 
-var current_scene
-
+# Called by puppet masters when they want to create a puppet
 signal SPAWN_PUPPET_SIGNAL(puppet_master,remote_sender_id)
 
+# Creates unique code for Object Synchroinizing
 func create_unique_object_code():
 	var id = ""
 	for n in 7:
@@ -23,24 +28,24 @@ func create_unique_object_code():
 	return id
 
 func _ready():
+	# Add/Remove puppetmasters when a controller Connects/Disconnects
 	Input.joy_connection_changed.connect(on_joy_connection_changed)
 
-
-	
-
-
-
+#region Puppet Master Spawning/Destruction
 func spawn_puppet_masters():
+	# If a puppet master for the local player exists already do not make another
 	if get_tree().get_nodes_in_group(str(multiplayer.get_unique_id())).size() >= 1:
 		return
+		
 	#Setup Keyboard Player
 	var puppet_master_keyboard = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0)
 	puppet_master_keyboard.network_node.owner_id = multiplayer.get_unique_id()
 	puppet_master_keyboard.controller = false;
+	
+	#Setup puppet masters for controllers currently connected
 	for controller_id in Input.get_connected_joypads():
 		add_controller_puppet_master(controller_id)
 
-## PUPPET MASTER CONTROLLERS
 func add_controller_puppet_master(new_device_id):
 	var puppet_master_controller = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0)
 	
@@ -62,7 +67,11 @@ func on_joy_connection_changed(device_id : int,connected : bool):
 		remove_controller_puppet_master(device_id)
 
 
-## OBJECT SPAWNING
+#endregion
+
+#region Synchronised Object Spawning
+# have local and remote functions for spawning seperate as RPCs ,even when called locally, do not return
+# the object spawned, makes it harder to spawn an object and initialize its value.
 func spawn_object(object_path : String,pos : Vector2,rot : float,parent_id : String = ""):
 	var object_id = create_unique_object_code()
 	var object_to_spawn = load(object_path) as PackedScene
@@ -102,39 +111,49 @@ func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id :
 	var networked_sync_node = object_instance.get_node("NetworkVarSync")
 	networked_sync_node.sync_id = object_id
 		
+#endregion
+
+# Custom Change scene function which -
+# - Synchronises the changing of the scene at runtime
+# - Stores the scene node path for people joining after game start
+# -	Potentially keep or destroy puppetmasters if puppetmater info is needed in the next scene
 @rpc("any_peer","call_local","reliable")
-func change_scene_rpc(scene_path : String, destroy_puppet_masters):
+func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
 	
 	if!destroy_puppet_masters:
+		# Destroy children of puppet master
 		for puppet_master in get_tree().get_nodes_in_group("puppet_masters"):
 			for child in puppet_master.get_children():
 				if child.name != "NetworkVarSync":
 					child.queue_free()
-		
+		# destroy everything under GameManager other than the puppetmasters
 		for child in GameManager.get_children():
 			if !child.is_in_group("puppet_masters"):
 				child.queue_free()
 	else:
+		# Destroy everything but the auto load
 		for child in GameManager.get_children():
 			child.queue_free()
 	
-
-	
+	# Change Scene
 	get_tree().change_scene_to_file(scene_path)
+	#Store scene node path for replication
 	current_scene = scene_path
 	
-
+# Get tree structure for all children of Game Manager for replication on newly joined client
 func sync_game_data(target_player):
 	var dict_to_send = Recursive_child(self)
 	sync_game_data_rpc.rpc_id(target_player,dict_to_send,current_scene)
 	pass
-	
+
+# Build children of GameManager based on received data from host
 @rpc("any_peer","call_remote","reliable")
 func sync_game_data_rpc(game_data : Dictionary,scene_path : String):
 	change_scene_rpc(scene_path,false)
 	recursive_build_scene(game_data,self)
 	pass
 
+# Helper function to get all nodes and their requirec information into a dictionary for sending
 func Recursive_child(node):
 	var dict = {}
 	for child in node.get_children():
@@ -149,17 +168,22 @@ func Recursive_child(node):
 		}
 	return dict
 
+# builds scene based on dictinary tree structure
 func recursive_build_scene(node_dictionary,parent_node):
 	for node in node_dictionary:
+		# Create child
 		var node_info = node_dictionary[node]
 		var object_to_spawn = load(node_info.node_path)
 		var object_instance = object_to_spawn.instantiate()
 		parent_node.add_child(object_instance)
-		print(node_info.node_path)
+		
+		# Update values
 		var network_node = object_instance.get_node("NetworkVarSync")
 		object_instance.name = node_info.sync_id
 		network_node.sync_id = node_info.sync_id
 		network_node.owner_id = node_info.owner_id
 		
 		objects_to_sync[node_info.sync_id] = object_instance
+		
+		# If the node has children, build those children
 		recursive_build_scene(node_info.children,object_instance)

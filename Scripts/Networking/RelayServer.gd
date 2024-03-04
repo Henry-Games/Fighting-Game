@@ -21,8 +21,7 @@ func create_room_code():
 # Called when the node enters the scene tree for the first time
 # Sets Up Server Socket
 func _ready():
-	get_tree().set_multiplayer
-	get_tree().set_multiplayer(MultiplayerAPI.create_default_interface(),"/root/RelayServer")
+	get_tree().set_multiplayer( MultiplayerAPI.create_default_interface(),"/root/RelayServer")
 	var relay_peer = ENetMultiplayerPeer.new()
 	var error = relay_peer.create_server(25566)
 	if error:
@@ -174,5 +173,6 @@ func game_started_rpc(started : bool):
 	ROOMS[room_id].game_started = started
 	
 ### END OF RELAY SERVER CONNECTION 
-
+func _exit_tree():
+	multiplayer.multiplayer_peer = null
 

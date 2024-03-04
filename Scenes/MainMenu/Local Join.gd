@@ -14,7 +14,7 @@ func _ready():
 	pass # Replace with function body.
 	
 	for interface in IP.get_local_interfaces():
-		if interface.friendly == "WiFi":
+		if interface.friendly == "WiFi" or interface.friendly == "wlan0":
 			wifi_interface = interface
 			
 	udp_network.join_multicast_group("224.0.0.0",wifi_interface.name)
@@ -23,7 +23,6 @@ func _ready():
 func _process(delta):
 	
 	if udp_network.get_available_packet_count() > 0:
-		print("RECEIVING PACKET")
 		var array_bytes = udp_network.get_packet()
 		var packet_string = array_bytes.get_string_from_ascii()
 		var new_server_room_code = packet_string
