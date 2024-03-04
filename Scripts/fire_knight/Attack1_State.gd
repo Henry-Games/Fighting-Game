@@ -6,7 +6,8 @@ var player
 func _ready():
 	#print("Enter Attack1 State")
 	player = get_parent()
-	
+	player.damage = 10
+	player.knockback = 2
 	player.animation.play("attack1", -1, 1.25)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

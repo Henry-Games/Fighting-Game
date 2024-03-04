@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlgmqilr5i5k5"]
+[gd_scene load_steps=3 format=3 uid="uid://dlgmqilr5i5k5"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.gd" id="1_qotqr"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/Local Join.gd" id="2_npxjh"]
 
 [node name="Lobby" type="Node2D" node_paths=PackedStringArray("JOIN_BUTTON", "HOST_BUTTON", "MessageLabel")]
 script = ExtResource("1_qotqr")
@@ -21,10 +22,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 49.5
-offset_top = -68.0
-offset_right = 100.5
-offset_bottom = -37.0
+offset_left = 281.0
+offset_top = -57.0
+offset_right = 332.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
@@ -37,28 +38,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 56.5
-offset_top = -25.5
-offset_right = 99.5
-offset_bottom = 5.5
+offset_left = 288.0
+offset_top = -14.5
+offset_right = 331.0
+offset_bottom = 16.5
 grow_horizontal = 2
 grow_vertical = 2
 disabled = true
 text = "JOIN"
 
-[node name="LineEdit" type="LineEdit" parent="Control"]
+[node name="NormalJoinLineEdit" type="LineEdit" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.5
-offset_top = 22.0
-offset_right = 115.563
-offset_bottom = 53.0
+offset_left = 259.0
+offset_top = 35.0
+offset_right = 372.0
+offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
+placeholder_text = "Room Code"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control"]
 layout_mode = 0
@@ -68,9 +70,27 @@ offset_right = 725.0
 offset_bottom = 93.0
 text = "CONNECTING"
 
+[node name="Local Host" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 483.0
+offset_right = 870.0
+offset_bottom = 514.0
+text = "Local Host
+"
+
+[node name="Local Join" type="FlowContainer" parent="Control"]
+layout_mode = 0
+offset_left = 747.0
+offset_top = 523.0
+offset_right = 923.0
+offset_bottom = 916.0
+script = ExtResource("2_npxjh")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
 [connection signal="button_down" from="Control/HOST" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Control/JOIN" to="." method="_on_join_button_down"]
-[connection signal="text_changed" from="Control/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Control/NormalJoinLineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Control/Local Host" to="." method="_on_local_host_button_down"]

@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlgmqilr5i5k5"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.gd" id="1_qotqr"]
+
+[node name="Lobby" type="Node2D" node_paths=PackedStringArray("JOIN_BUTTON", "HOST_BUTTON", "MessageLabel")]
+script = ExtResource("1_qotqr")
+JOIN_BUTTON = NodePath("Control/JOIN")
+HOST_BUTTON = NodePath("Control/HOST")
+MessageLabel = NodePath("Control/RichTextLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="HOST" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 281.0
+offset_top = -57.0
+offset_right = 332.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+text = "HOST"
+
+[node name="JOIN" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 288.0
+offset_top = -14.5
+offset_right = 331.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+text = "JOIN"
+
+[node name="LineEdit" type="LineEdit" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 280.0
+offset_top = 33.0
+offset_right = 347.063
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 53.0
+offset_right = 725.0
+offset_bottom = 93.0
+text = "CONNECTING"
+
+[node name="Local Host" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 483.0
+offset_right = 870.0
+offset_bottom = 514.0
+text = "Local Host
+"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[connection signal="button_down" from="Control/HOST" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Control/JOIN" to="." method="_on_join_button_down"]
+[connection signal="text_changed" from="Control/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Control/Local Host" to="." method="_on_local_host_button_down"]

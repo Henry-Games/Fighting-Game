@@ -543,7 +543,7 @@ libraries = {
 [node name="NetworkVarSync" parent="." instance=ExtResource("3_v72e2")]
 instance_file_path = "res://Scenes/fire_knight.tscn"
 unreliable_sync_vars = {
-NodePath(".."): ["global_position"]
+NodePath(".."): ["global_position", "health"]
 }
 
 [connection signal="body_entered" from="Sprite2D/AttackHit" to="." method="_on_attack_hit_body_entered"]

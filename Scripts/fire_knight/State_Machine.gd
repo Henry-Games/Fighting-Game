@@ -14,6 +14,8 @@ func _init():
 		"sp_attack": SpAttack_State,
 		"defend": Defend_State,
 		"roll": Roll_State,
+		"death":Death_State,
+		"hit":Hit_State,
 	}
 
 func get_state(state_name):

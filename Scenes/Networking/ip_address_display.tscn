@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://hep4dprvttd7"]
+
+[ext_resource type="Script" path="res://Scenes/Networking/LocalServerBroadCast.gd" id="1_utkm0"]
+
+[node name="IpAddressDisplay" type="RichTextLabel"]
+offset_right = 367.0
+offset_bottom = 25.0
+text = "ADDRESS:
+"
+script = ExtResource("1_utkm0")

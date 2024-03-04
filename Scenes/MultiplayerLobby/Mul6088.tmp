@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://cglna433cd3s0"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
+[ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/room_code_display.tscn" id="2_tikey"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/Networking/ip_address_display.tscn" id="3_7sipt"]
+
+[node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("StartGameButton", "IpAddressText")]
+script = ExtResource("1_qmw6p")
+StartGameButton = NodePath("StartGame")
+IpAddressText = NodePath("IpAddressDisplay")
+
+[node name="StartGame" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1022.0
+offset_top = 584.0
+offset_right = 1128.0
+offset_bottom = 615.0
+grow_vertical = 0
+text = "START GAME"
+
+[node name="RoomCodeDisplay" parent="." instance=ExtResource("2_tikey")]
+offset_left = 907.0
+offset_top = 537.0
+offset_right = 1124.0
+offset_bottom = 577.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(641, 363)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Leave" type="Button" parent="."]
+offset_left = 1024.0
+offset_top = 620.0
+offset_right = 1129.0
+offset_bottom = 652.0
+text = "LEAVE
+"
+
+[node name="IpAddressDisplay" parent="." instance=ExtResource("3_7sipt")]
+offset_left = 907.0
+offset_top = 506.0
+offset_right = 1274.0
+offset_bottom = 531.0
+
+[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
+[connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]

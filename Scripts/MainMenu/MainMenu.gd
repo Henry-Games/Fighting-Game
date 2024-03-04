@@ -5,7 +5,10 @@ extends Node2D
 @export var MessageLabel : RichTextLabel
 
 
+
 func _ready():
+	
+
 	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
 	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
 	Relayconnect.HOST_SUCCESS.connect(_on_host_success)
@@ -14,6 +17,9 @@ func _ready():
 	Relayconnect.ON_RELAY_SERVER_CONNECT.connect(_on_relay_server_connect)
 	if Relayconnect.connected:
 		_on_relay_server_connect()
+	
+	# Place the relay server IP
+	Relayconnect.connect_to_relay_server("199.999.999.999")
 
 
 	
@@ -34,9 +40,12 @@ func _on_join_fail(error_message):
 	print("JOIN FAIL")
 
 func _on_relay_server_connect():
-	MessageLabel.text = ""
-	JOIN_BUTTON.disabled = false
-	HOST_BUTTON.disabled = false
+	if Relayconnect.IS_LOCAL_HOST:
+		Relayconnect.host()
+	else:
+		MessageLabel.text = ""
+		JOIN_BUTTON.disabled = false
+		HOST_BUTTON.disabled = false
 
 func _on_relay_server_fail():
 	MessageLabel.text = "CONNECTION TO RELAY SERVER FAILED"
@@ -50,6 +59,15 @@ func _on_join_button_down():
 func _on_line_edit_text_changed(new_text):
 	Relayconnect.typed_room_code = new_text
 
+func _on_local_host_button_down():
+	Relayconnect.local_host()
 
 
-	
+func _on_local_room_code_text_changed(new_text):
+	Relayconnect.typed_room_code = new_text
+	pass # Replace with function body.
+
+
+func _on_local_ip_text_changed(new_text):
+	Relayconnect.typed_local_address = new_text
+

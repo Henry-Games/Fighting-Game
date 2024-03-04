@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/lobby_player.gd" id="1_f0jbx"]
 [ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="2_2ogvi"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("lineEdit", "alphabet_grid", "colour_grid", "disconnect_button", "TYPE_HERE_LABEL", "prior_button", "selected_button")]
+[node name="Control" type="Control" node_paths=PackedStringArray("lineEdit", "alphabet_grid", "colour_grid", "disconnect_button", "TYPE_HERE_LABEL")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -19,8 +19,6 @@ alphabet_grid = NodePath("Keyboard")
 colour_grid = NodePath("ColourSelect")
 disconnect_button = NodePath("Disconnect_Button")
 TYPE_HERE_LABEL = NodePath("TypeHere")
-prior_button = NodePath("Keyboard/A")
-selected_button = NodePath("Keyboard/A")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0

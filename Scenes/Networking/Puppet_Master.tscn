@@ -7,7 +7,7 @@
 script = ExtResource("1_ppaoh")
 
 [node name="NetworkVarSync" parent="." instance=ExtResource("2_ghhjx")]
-instance_file_path = "res://SCENES/NETWORKING/Puppet_Master.tscn"
+instance_file_path = "res://Scenes/Networking/Puppet_Master.tscn"
 reliable_sync_vars = {
 NodePath(".."): ["player_name"]
 }
