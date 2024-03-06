@@ -32,7 +32,6 @@ func _ready():
 
 # Starts connecting to relay server, could be any - Local or Remote
 func connect_to_relay_server(ip : String):
-
 	var relay_connect = ENetMultiplayerPeer.new()
 	var error = relay_connect.create_client(ip,25566)
 
@@ -197,7 +196,8 @@ func local_join(ip,room_code):
 	# set roomcode to join when connection succeds
 	typed_room_code = room_code
 	joining_local_host = true
-	
+
+
 # CALL RPC ROOM -  Calls rpc functions on the entire joined lobby - Currently only up to 
 func call_rpc_room(rpc_function : Callable, args : Array, call_self : bool = true):
 	if !ROOM_DATA.has("players") or multiplayer.multiplayer_peer.get_connection_status() != 2:

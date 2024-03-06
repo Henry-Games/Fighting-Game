@@ -139,7 +139,8 @@ func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
 	get_tree().change_scene_to_file(scene_path)
 	#Store scene node path for replication
 	current_scene = scene_path
-	
+
+
 # Get tree structure for all children of Game Manager for replication on newly joined client
 func sync_game_data(target_player):
 	var dict_to_send = Recursive_child(self)
@@ -153,7 +154,7 @@ func sync_game_data_rpc(game_data : Dictionary,scene_path : String):
 	recursive_build_scene(game_data,self)
 	pass
 
-# Helper function to get all nodes and their requirec information into a dictionary for sending
+# Helper function to get all nodes and their require information into a dictionary for sending
 func Recursive_child(node):
 	var dict = {}
 	for child in node.get_children():

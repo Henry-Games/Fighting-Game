@@ -6,7 +6,10 @@ var network_node : Node2D
 # ID for the connected device 0 for keyboard and first connected controller, 2nd controller id = 1 etc
 var device_id := 0
 var controller := true
+
+
 var player_name := "" : set = player_name_changed
+
 signal PlayerNameChangedSignal(new_name)
 
 #region Player Input Variables
@@ -165,6 +168,7 @@ func ButtonSignalCall(signalName):
 			SpecialSignal.emit()
 		"ROLL":
 			RollSignal.emit()
+
 
 #region OnMoveAxisChange
 #####		

@@ -221,14 +221,14 @@ script = ExtResource("1_h635n")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
-offset_right = 1153.0
-offset_bottom = 647.0
+offset_right = 1918.0
+offset_bottom = 1067.0
 texture = ExtResource("1_7hnbh")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 texture_filter = 1
-offset_right = 1152.0
-offset_bottom = 649.0
+offset_right = 1927.0
+offset_bottom = 1069.0
 texture = ExtResource("2_4gy06")
 
 [node name="TileMap" type="TileMap" parent="."]

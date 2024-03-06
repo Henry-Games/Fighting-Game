@@ -53,11 +53,12 @@ func _on_attack_hit_body_entered(body):
 	if body.get_class() == "CharacterBody2D" and body != self:
 		var direction = sign(scale.y)
 		body.TakeDamage(damage, knockback,direction)
-		
 
 func TakeDamage(damage : int, knockback:float,direction : int):
+
 	Relayconnect.call_rpc_room(TakeDamageRPC,[damage,knockback,direction]);
-	
+
+
 @rpc("any_peer","call_local","reliable")
 func TakeDamageRPC(damage : int, knockback: float, direction : int):
 	health -= damage

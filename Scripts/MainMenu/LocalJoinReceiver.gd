@@ -6,13 +6,11 @@ var wifi_interface
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	udp_network = PacketPeerUDP.new()
-
 	if udp_network.bind(server_broadcasting_udp_port) != OK:
 		print("Error listening on port: ", server_broadcasting_udp_port)
 	else:
 		print("Listening on port: ", server_broadcasting_udp_port)
-	pass # Replace with function body.
-	
+
 	for interface in IP.get_local_interfaces():
 		if interface.friendly == "WiFi" or interface.friendly == "wlan0":
 			wifi_interface = interface
