@@ -14,6 +14,7 @@ func _ready():
 	pass # Replace with function body.
 	
 	for interface in IP.get_local_interfaces():
+		print(interface)
 		if interface.friendly == "WiFi" or interface.friendly == "wlan0":
 			wifi_interface = interface
 			
