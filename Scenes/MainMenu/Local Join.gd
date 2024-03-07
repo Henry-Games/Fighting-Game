@@ -14,7 +14,7 @@ func _ready():
 	pass # Replace with function body.
 	
 	for interface in IP.get_local_interfaces():
-		if interface.friendly == "WiFi" or interface.friendly == "wlan0":
+		if interface.friendly in ["WiFi", "wlan0"] or interface.friendly.contains("wlp"):
 			wifi_interface = interface
 			
 	udp_network.join_multicast_group("224.0.0.0",wifi_interface.name)
