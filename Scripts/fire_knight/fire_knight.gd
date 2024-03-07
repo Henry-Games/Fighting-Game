@@ -15,8 +15,12 @@ var state
 var state_machine
 
 var was_in_air = false
+var mobile_controls = preload("res://Scenes/Networking/mobile_controls.tscn")
 func _ready():
 
+	if get_parent().network_node.is_local_player and get_parent().mobile:
+		var instance = mobile_controls.instantiate()
+		add_child(instance)
 	
 	state_machine = State_Machine.new()
 	change_state("idle")
@@ -25,13 +29,18 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
 	move_and_slide()
 
 func change_state(new_state_name):
 	if state != null:
 		state.exit()
 		state.queue_free()
+	
+	# FOR synchronosity on each state change reliably update player position
+	if $NetworkVarSync.is_local_player:
+		var node_array_pos = $NetworkVarSync.node_array.find(self)
+		Relayconnect.call_rpc_room($NetworkVarSync.reliable_sync,[{node_array_pos:{"global_position":global_position}}],false)
+		
 	# Add New State
 	state = state_machine.get_state(new_state_name).new()
 	state.setup("change_state", self)

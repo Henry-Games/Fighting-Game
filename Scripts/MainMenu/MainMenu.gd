@@ -8,7 +8,7 @@ extends Node2D
 
 func _ready():
 	
-	Relayconnect.connect_to_relay_server("192.168.1.1")
+	Relayconnect.connect_to_relay_server("13.210.71.64")
 	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
 	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
 	Relayconnect.HOST_SUCCESS.connect(_on_host_success)
@@ -53,7 +53,7 @@ func _on_host_button_down():
 
 func _on_join_button_down():
 	Relayconnect.join()
-	
+
 func _on_line_edit_text_changed(new_text):
 	Relayconnect.typed_room_code = new_text
 

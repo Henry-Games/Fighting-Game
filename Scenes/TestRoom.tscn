@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://cr2umbblh3ugk"]
 
-[ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="1_7hnbh"]
-[ext_resource type="Script" path="res://Scenes/TestRoom.gd" id="1_h635n"]
-[ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_4gy06"]
-[ext_resource type="Texture2D" uid="uid://b1igchrhjrehd" path="res://Assets/Tileset.png" id="3_fmsh2"]
+[ext_resource type="Script" path="res://Scenes/TestRoom.gd" id="1_uldmp"]
+[ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="2_njwg4"]
+[ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="3_qd2mr"]
+[ext_resource type="Texture2D" uid="uid://b1igchrhjrehd" path="res://Assets/Tileset.png" id="4_gy7dp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq0cu"]
-texture = ExtResource("3_fmsh2")
+texture = ExtResource("4_gy7dp")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -217,19 +217,19 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jq0cu")
 
 [node name="Node" type="Node"]
-script = ExtResource("1_h635n")
+script = ExtResource("1_uldmp")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
 offset_right = 1918.0
 offset_bottom = 1067.0
-texture = ExtResource("1_7hnbh")
+texture = ExtResource("2_njwg4")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 texture_filter = 1
 offset_right = 1927.0
 offset_bottom = 1069.0
-texture = ExtResource("2_4gy06")
+texture = ExtResource("3_qd2mr")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1

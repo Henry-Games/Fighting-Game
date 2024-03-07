@@ -7,6 +7,7 @@ extends Control
 @export var disconnect_button : Button
 @export var TYPE_HERE_LABEL : RichTextLabel
 
+var mobile = false
 var controller := false
 var controller_id := 0
 
@@ -19,11 +20,11 @@ var selected_button : Button : set = onSelectedButtonChanged
 
 func _ready():
 	add_to_group("lobby_players")
-	
 	# Get data from puppetmaster
 	puppet_master = get_parent()
 	controller_id = puppet_master.device_id
 	controller = puppet_master.controller
+	mobile = puppet_master.mobile
 	lineEdit.text = puppet_master.player_name
 	
 	$NetworkVarSync.owner_id = puppet_master.network_node.owner_id
@@ -40,7 +41,11 @@ func _ready():
 			child.disabled = false
 			child.button_mask = MOUSE_BUTTON_MASK_LEFT
 		
-		disconnect_button.disabled = false
+		if mobile:
+			disconnect_button.queue_free()
+		else:
+			disconnect_button.disabled = false
+			
 		disconnect_button.button_mask = MOUSE_BUTTON_MASK_LEFT
 		TYPE_HERE_LABEL.text = "TYPE HERE ^ ^ ^"
 	

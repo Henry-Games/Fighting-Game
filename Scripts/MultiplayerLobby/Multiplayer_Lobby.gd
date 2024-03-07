@@ -5,13 +5,16 @@ extends Node2D
 func _ready():
 	if !Relayconnect.IS_LOCAL_HOST:
 		IpAddressText.queue_free()
-		
-	GameManager.spawn_puppet_masters()
-	GameManager.SPAWN_PUPPET_SIGNAL.connect(spawn_lobby_player)
+	
 	if Relayconnect.IS_HOST:
 		Relayconnect.game_started_rpc.rpc_id(0,false)	
 		for puppet_master in get_tree().get_nodes_in_group("in_game"):
 			spawn_lobby_player(puppet_master)
+	
+	GameManager.SPAWN_PUPPET_SIGNAL.connect(spawn_lobby_player)
+	GameManager.spawn_puppet_masters()
+	
+
 		
 	
 func spawn_lobby_player(puppet_master):
@@ -52,7 +55,7 @@ func _process(delta):
 
 func _on_start_game_button_down():
 	Relayconnect.game_started_rpc.rpc_id(0,true)
-	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/main.tscn",false])
+	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/TestRoom.tscn",false])
 
 
 

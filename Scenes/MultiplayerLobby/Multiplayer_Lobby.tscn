@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
 [ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/room_code_display.tscn" id="2_tikey"]
-[ext_resource type="PackedScene" path="res://Scenes/Networking/ip_address_display.tscn" id="3_7sipt"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/Networking/LocalServerBroadCast.tscn" id="3_7sipt"]
 
 [node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("StartGameButton", "IpAddressText")]
 script = ExtResource("1_qmw6p")

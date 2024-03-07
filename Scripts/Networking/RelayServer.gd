@@ -16,7 +16,7 @@ func create_room_code():
 		return create_room_code()
 	
 	return id
-	
+
 ### ALL CODE PERTAINING TO RELAY CONNECTION
 # Called when the node enters the scene tree for the first time
 # Sets Up Server Socket
@@ -29,23 +29,27 @@ func _ready():
 	multiplayer.multiplayer_peer = relay_peer
 	
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	
+
+
 ## CREATES PLAYER ON JOIN
 @rpc("any_peer","call_remote","reliable")
 func _resgister_player():
+	
 	var new_player_id = multiplayer.get_remote_sender_id()
+	
 	PLAYER_DICT[new_player_id] = {
 		"player_name":"EMPTY",
 		"room_code":"EMPTY",
 		"is_host":false,
 		"multiplayer_id":0
 	}
+	
 
 func _on_player_disconnected(id):
 	
 	if !PLAYER_DICT.has(id):
 		return
-
+	
 	var player_data = PLAYER_DICT[id]
 	var room_code = player_data.room_code
 	PLAYER_DICT.erase(id)
@@ -53,6 +57,7 @@ func _on_player_disconnected(id):
 		ROOMS[room_code].players.erase(id)
 		close_room(room_code)
 	elif ROOMS.has(room_code):
+		
 		ROOMS[room_code].players.erase(id)
 		remove_player(room_code,id)
 

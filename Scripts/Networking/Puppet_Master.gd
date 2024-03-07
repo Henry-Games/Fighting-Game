@@ -6,7 +6,7 @@ var network_node : Node2D
 # ID for the connected device 0 for keyboard and first connected controller, 2nd controller id = 1 etc
 var device_id := 0
 var controller := true
-
+var mobile = false
 
 var player_name := "" : set = player_name_changed
 
@@ -48,12 +48,17 @@ var key_bindings_controller = {
 	"JUMP":JOY_BUTTON_A,
 	"SPAWN PLAYER":JOY_BUTTON_A,
 }
-#endregion
 
+
+#endregion
 func _ready():
 	network_node = get_node("NetworkVarSync")
 	add_to_group("puppet_masters")
-	pass
+
+@rpc("any_peer","call_local","reliable")
+func _network_ready():
+	GameManager.SPAWN_PUPPET_SIGNAL.emit(self)	
+
 
 func _process(delta):
 	# Only run input detection on puppet if this puppet is owned by the local player
@@ -147,8 +152,22 @@ func _input(event : InputEvent):
 							MoveAxis.y += 1
 					_:
 						if event.pressed:
-								Relayconnect.call_rpc_room(ButtonSignalCall,[key_bindings_keyboard.find_key(key)])
- 
+							Relayconnect.call_rpc_room(ButtonSignalCall,[key_bindings_keyboard.find_key(key)])
+							
+			"InputEventAction":
+				match event.action:
+					"MOVE LEFT":
+						if event.pressed:
+							MoveAxis.x -= 1
+						else:
+							MoveAxis.x += 1
+					"MOVE RIGHT":
+						if event.pressed:
+							MoveAxis.x += 1
+						else:
+							MoveAxis.x -= 1
+					_:
+						Relayconnect.call_rpc_room(ButtonSignalCall,[event.action])
 
 @rpc("any_peer","call_local","reliable")
 func ButtonSignalCall(signalName):

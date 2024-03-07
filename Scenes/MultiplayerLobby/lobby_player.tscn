@@ -338,7 +338,7 @@ text = "PURPLE"
 instance_file_path = "res://Scenes/MultiplayerLobby/lobby_player.tscn"
 reliable_sync_vars = {
 NodePath("../LineEdit"): ["text"],
-NodePath(".."): ["global_position"]
+NodePath(".."): ["global_position", "lobby_grid_pos"]
 }
 is_local_authority = true
 

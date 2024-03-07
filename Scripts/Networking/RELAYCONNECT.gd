@@ -47,10 +47,12 @@ func _on_connected_to_server():
 	ON_RELAY_SERVER_CONNECT.emit()
 	
 	if IS_LOCAL_HOST:
+		print(IS_LOCAL_HOST)
 		host()
 	# Instantly join selected local room if joining through local broadcast
 	if joining_local_host:
 		join()
+
 	joining_local_host = false
 	
 #Register player command
@@ -66,14 +68,15 @@ func _on_connected_fail():
 # if relay server disconncets Return to main menu and reset important values to default
 func _on_server_disconnected():
 	connected = false
-	
-	GameManager.change_scene_rpc("res://Scenes/MainMenu/MainMenu.tscn",true)
 	ROOM_DATA = {}
 	ROOM_CODE = ""
 	IS_HOST = false
 	IS_LOCAL_HOST = false
-	HOST_ID = 0
 	joining_local_host = false
+	HOST_ID = 0
+	
+	GameManager.change_scene_rpc("res://Scenes/MainMenu/MainMenu.tscn",true)
+	
 	
 # Host Using remote relay server
 func host():
@@ -166,6 +169,7 @@ func room_closed():
 	for child in GameManager.get_children():
 		child.queue_free()
 	IS_HOST = false
+	IS_LOCAL_HOST = false
 	HOST_ID = 0
 	get_tree().change_scene_to_file("res://Scenes/MainMenu/MainMenu.tscn")
 
@@ -224,5 +228,4 @@ func call_rpc_room(rpc_function : Callable, args : Array, call_self : bool = tru
 				rpc_function.rpc_id(player_id,args[0],args[1],args[2],args[3],args[4],args[5])
 
 
-	
 

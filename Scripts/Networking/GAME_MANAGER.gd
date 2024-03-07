@@ -12,7 +12,7 @@ var controller_puppet_masters = {}
 var CHARS = "1234567890";
 
 # Called by puppet masters when they want to create a puppet
-signal SPAWN_PUPPET_SIGNAL(puppet_master,remote_sender_id)
+signal SPAWN_PUPPET_SIGNAL(puppet_master)
 
 # Creates unique code for Object Synchroinizing
 func create_unique_object_code():
@@ -38,18 +38,20 @@ func spawn_puppet_masters():
 		return
 		
 	#Setup Keyboard Player
-	var puppet_master_keyboard = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0)
-	puppet_master_keyboard.network_node.owner_id = multiplayer.get_unique_id()
-	puppet_master_keyboard.controller = false;
-	
+	var puppet_master_keyboard_touch = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0,"",multiplayer.get_unique_id())
+	puppet_master_keyboard_touch.controller = false;
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		puppet_master_keyboard_touch.mobile = true
+	puppet_master_keyboard_touch._network_ready.rpc_id(Relayconnect.HOST_ID)
+		
 	#Setup puppet masters for controllers currently connected
 	for controller_id in Input.get_connected_joypads():
 		add_controller_puppet_master(controller_id)
 
 func add_controller_puppet_master(new_device_id):
-	var puppet_master_controller = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0)
+	var puppet_master_controller = spawn_object("res://Scenes/Networking/Puppet_Master.tscn",Vector2.ZERO,0,"",multiplayer.get_unique_id())
 	
-	puppet_master_controller.get_node("NetworkVarSync").owner_id = multiplayer.get_unique_id()
+	
 	puppet_master_controller.controller = true
 	puppet_master_controller.device_id = new_device_id
 	controller_puppet_masters[new_device_id] = puppet_master_controller
@@ -72,36 +74,34 @@ func on_joy_connection_changed(device_id : int,connected : bool):
 #region Synchronised Object Spawning
 # have local and remote functions for spawning seperate as RPCs ,even when called locally, do not return
 # the object spawned, makes it harder to spawn an object and initialize its value.
-func spawn_object(object_path : String,pos : Vector2,rot : float,parent_id : String = ""):
+func spawn_object(object_path : String,pos : Vector2,rot : float,parent_id : String = "",owner_id : int = 0):
 	var object_id = create_unique_object_code()
 	var object_to_spawn = load(object_path) as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
-	
-	if parent_id != "":
-		objects_to_sync[parent_id].add_child(object_instance)
-	else:
-		add_child(object_instance)
-	
 	object_instance.global_position = pos
 	object_instance.rotation_degrees = rot
 	object_instance.name = object_id
 	objects_to_sync[object_id] = object_instance
 	
 	var networked_sync_node = object_instance.get_node("NetworkVarSync")
+	networked_sync_node.multiplayer_id = multiplayer.get_unique_id()
 	networked_sync_node.sync_id = object_id
+	networked_sync_node.owner_id = owner_id
 	
-	Relayconnect.call_rpc_room(spawn_object_rpc,[object_path,pos,rot,object_id,parent_id],false)
+	if parent_id != "":
+		objects_to_sync[parent_id].add_child(object_instance)
+	else:
+		add_child(object_instance)
+		
+	Relayconnect.call_rpc_room(spawn_object_rpc,[object_path,pos,rot,object_id,parent_id,owner_id],false)
 	return object_instance
 
 @rpc("any_peer","call_local","reliable")
-func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id : String,parent_id : String = ""):
+func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id : String,parent_id : String = "",owner_id : int = 0):
 	var object_to_spawn = load(object_path) as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
 	
-	if parent_id != "":
-		objects_to_sync[parent_id].add_child(object_instance)
-	else:
-		add_child(object_instance)
+	
 	
 	object_instance.global_position = pos
 	object_instance.rotation_degrees = rot
@@ -109,7 +109,14 @@ func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id :
 	objects_to_sync[object_id] = object_instance
 	
 	var networked_sync_node = object_instance.get_node("NetworkVarSync")
+	networked_sync_node.multiplayer_id = multiplayer.get_unique_id()
 	networked_sync_node.sync_id = object_id
+	networked_sync_node.owner_id = owner_id
+	
+	if parent_id != "":
+		objects_to_sync[parent_id].add_child(object_instance)
+	else:
+		add_child(object_instance)
 		
 #endregion
 
@@ -176,7 +183,7 @@ func recursive_build_scene(node_dictionary,parent_node):
 		var node_info = node_dictionary[node]
 		var object_to_spawn = load(node_info.node_path)
 		var object_instance = object_to_spawn.instantiate()
-		parent_node.add_child(object_instance)
+
 		
 		# Update values
 		var network_node = object_instance.get_node("NetworkVarSync")
@@ -184,6 +191,7 @@ func recursive_build_scene(node_dictionary,parent_node):
 		network_node.sync_id = node_info.sync_id
 		network_node.owner_id = node_info.owner_id
 		
+		parent_node.add_child(object_instance)
 		objects_to_sync[node_info.sync_id] = object_instance
 		
 		# If the node has children, build those children

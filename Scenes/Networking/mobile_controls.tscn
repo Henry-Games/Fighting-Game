@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=3 uid="uid://doqij2r7ifb2b"]
+
+[ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="1_288t3"]
+[ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_4rnvo"]
+
+[node name="mobile_controls" type="Node"]
+
+[node name="AttackButton" type="TouchScreenButton" parent="."]
+position = Vector2(1626, 696)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "ATTACK"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AttackButton"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "ATTACK
+"
+
+[node name="JumpButton" type="TouchScreenButton" parent="."]
+position = Vector2(1376, 835)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "JUMP"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="JumpButton"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "JUMP
+"
+
+[node name="Roll" type="TouchScreenButton" parent="."]
+position = Vector2(1494, 712)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "ROLL"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Roll"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "ROLL
+"
+
+[node name="Defend" type="TouchScreenButton" parent="."]
+position = Vector2(1635, 840)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "DEFEND"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Defend"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "DEFEND
+"
+
+[node name="SpecialAttacl" type="TouchScreenButton" parent="."]
+position = Vector2(1511, 837)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "SPECIAL"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SpecialAttacl"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "SPECIAL
+"
+
+[node name="LEFT" type="TouchScreenButton" parent="."]
+position = Vector2(128, 866)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "MOVE LEFT"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LEFT"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "Left
+
+"
+
+[node name="RIGHT" type="TouchScreenButton" parent="."]
+position = Vector2(282, 866)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_288t3")
+texture_pressed = ExtResource("2_4rnvo")
+action = "MOVE RIGHT"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="RIGHT"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "Right
+"
