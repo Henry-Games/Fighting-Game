@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://cglna433cd3s0"]
 
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
-[ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/room_code_display.tscn" id="2_tikey"]
-[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/Networking/LocalServerBroadCast.tscn" id="3_7sipt"]
+[ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/Room_Code_Display.tscn" id="2_tikey"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
 
-[node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("StartGameButton", "IpAddressText")]
+[node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("start_game_button", "local_broadcast")]
 script = ExtResource("1_qmw6p")
-StartGameButton = NodePath("StartGame")
-IpAddressText = NodePath("IpAddressDisplay")
+start_game_button = NodePath("StartGame")
+local_broadcast = NodePath("LocalBroadcast")
 
 [node name="StartGame" type="Button" parent="."]
 anchors_preset = 2
@@ -38,7 +38,7 @@ offset_bottom = 652.0
 text = "LEAVE
 "
 
-[node name="IpAddressDisplay" parent="." instance=ExtResource("3_7sipt")]
+[node name="LocalBroadcast" parent="." instance=ExtResource("3_lhou2")]
 offset_left = 907.0
 offset_top = 506.0
 offset_right = 1274.0

@@ -15,7 +15,7 @@ var state
 var state_machine
 
 var was_in_air = false
-var mobile_controls = preload("res://Scenes/Networking/mobile_controls.tscn")
+var mobile_controls = preload("res://Scenes/FireKnight/Mobile_Controls.tscn")
 func _ready():
 
 	if get_parent().network_node.is_local_player and get_parent().mobile:

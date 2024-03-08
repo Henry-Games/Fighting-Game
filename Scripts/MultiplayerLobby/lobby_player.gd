@@ -1,11 +1,11 @@
 extends Control
 
 # TO SET IN EDITOR
-@export var lineEdit : LineEdit
+@export var name_line_edit : LineEdit
 @export var alphabet_grid : FlowContainer
 @export var colour_grid : FlowContainer
 @export var disconnect_button : Button
-@export var TYPE_HERE_LABEL : RichTextLabel
+@export var type_here_label : RichTextLabel
 
 var mobile = false
 var controller := false
@@ -25,10 +25,10 @@ func _ready():
 	controller_id = puppet_master.device_id
 	controller = puppet_master.controller
 	mobile = puppet_master.mobile
-	lineEdit.text = puppet_master.player_name
+	name_line_edit.text = puppet_master.player_name
 	
 	$NetworkVarSync.owner_id = puppet_master.network_node.owner_id
-	$NetworkVarSync.DestroyingOnPurpose.connect(_on_purposeful_destroy)
+	$NetworkVarSync.DestroyingOnPurposeSignal.connect(_on_purposeful_destroy)
 	
 	#Add tag/group to puppet master for spawning when moving to the main game scenes
 	puppet_master.add_to_group("in_game")
@@ -47,7 +47,7 @@ func _ready():
 			disconnect_button.disabled = false
 			
 		disconnect_button.button_mask = MOUSE_BUTTON_MASK_LEFT
-		TYPE_HERE_LABEL.text = "TYPE HERE ^ ^ ^"
+		type_here_label.text = "TYPE HERE ^ ^ ^"
 	
 	# If not owned by the local computer then disable text input
 	if !puppet_master.network_node.is_local_player:
@@ -58,8 +58,8 @@ func _ready():
 			child.queue_free()
 		
 		disconnect_button.queue_free()
-		TYPE_HERE_LABEL.text = "REMOTE PLAYER"
-		lineEdit.editable = false
+		type_here_label.text = "REMOTE PLAYER"
+		name_line_edit.editable = false
 		set_process_input(false)
 
 
@@ -86,19 +86,19 @@ func _input(event):
 						JOY_BUTTON_A:
 							buttonPressed()
 						JOY_BUTTON_B:
-							lineEdit.text = lineEdit.text.left(lineEdit.text.length() - 1)
-							lineEdit.text_changed.emit(lineEdit.text)
+							name_line_edit.text = name_line_edit.text.left(name_line_edit.text.length() - 1)
+							name_line_edit.text_changed.emit(name_line_edit.text)
 				
 	
 func buttonPressed():
 	match selected_button.text:
 		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",\
 		"S","T","U","V","W","X","Y","Z":
-			lineEdit.text += selected_button.text
-			lineEdit.text_changed.emit(lineEdit.text)
+			name_line_edit.text += selected_button.text
+			name_line_edit.text_changed.emit(name_line_edit.text)
 		"BACK":
-			lineEdit.text = lineEdit.text.left(lineEdit.text.length() - 1)
-			lineEdit.text_changed.emit(lineEdit.text)
+			name_line_edit.text = name_line_edit.text.left(name_line_edit.text.length() - 1)
+			name_line_edit.text_changed.emit(name_line_edit.text)
 		_:
 			selected_button.button_down.emit()
 			

@@ -1,31 +1,28 @@
+class_name Puppet_Master
 extends Node2D
 
-# Store the network_var sync for easy access
-var network_node : Node2D
+signal PlayerNameChangedSignal(new_name)
+signal MoveAxisChangedSignal(move_dir : Vector2)
+signal LookAxisChangedSignal(lookDir : Vector2)
+signal MousePositionChangeSignal(mouse_pos : Vector2)
+signal JumpSignal
+signal AttackSignal
+signal SpecialSignal
+signal RollSignal
+signal DefendSignal
 
 # ID for the connected device 0 for keyboard and first connected controller, 2nd controller id = 1 etc
 var device_id := 0
 var controller := true
 var mobile = false
 
+# Player Data
 var player_name := "" : set = player_name_changed
 
-signal PlayerNameChangedSignal(new_name)
-
 #region Player Input Variables
-
 var MoveAxis := Vector2(0,0) : set = MoveAxisChanged
 var LookAxis := Vector2(0,0) : set = LookAxisChanged
-var MousePos := Vector2.ZERO : set = MousePositionChange
-
-signal MoveAxisChangedSignal(move_dir : Vector2)
-signal LookAxisChangedSignal(lookDir : Vector2)
-signal MousePositionChangeSignal(mouse_pos : Vector2)
-signal JumpSignal()
-signal AttackSignal()
-signal SpecialSignal()
-signal RollSignal()
-signal DefendSignal()
+var MousePos := Vector2.ZERO : set = MousePositionChanged
 
 # Keyboard Bindings
 var key_bindings_keyboard = {
@@ -48,17 +45,16 @@ var key_bindings_controller = {
 	"JUMP":JOY_BUTTON_A,
 	"SPAWN PLAYER":JOY_BUTTON_A,
 }
-
-
 #endregion
+
+@onready var network_node : Network_Var_Sync = $NetworkVarSync
 func _ready():
-	network_node = get_node("NetworkVarSync")
+	print("READY")
 	add_to_group("puppet_masters")
 
 @rpc("any_peer","call_local","reliable")
-func _network_ready():
-	GameManager.SPAWN_PUPPET_SIGNAL.emit(self)	
-
+func spawn_puppet_cmd():
+	GameManager.SpawnPuppetSignal.emit(self)	
 
 func _process(delta):
 	# Only run input detection on puppet if this puppet is owned by the local player
@@ -173,7 +169,7 @@ func _input(event : InputEvent):
 func ButtonSignalCall(signalName):
 	if get_child_count() < 2 && Relayconnect.IS_HOST:
 		# Tell gamemanager to spawn the puppet for this puppet master
-		GameManager.SPAWN_PUPPET_SIGNAL.emit(self)
+		GameManager.SpawnPuppetSignal.emit(self)
 		return
 		
 	match signalName:
@@ -214,7 +210,7 @@ func LookAxisChanged(new_look_axis):
 
 #region OnMousePosChange
 #####
-func MousePositionChange(new_mouse_pos):
+func MousePositionChanged(new_mouse_pos):
 	MousePos = new_mouse_pos
 	MousePositionChangeSignal.emit(new_mouse_pos)
 #####
@@ -226,9 +222,4 @@ func player_name_changed(new_player_name):
 	PlayerNameChangedSignal.emit(new_player_name)
 
 
-
-@rpc("any_peer","call_local","reliable")
-func DestroySelf():
-	GameManager.objects_to_sync.erase(name)
-	queue_free()
 

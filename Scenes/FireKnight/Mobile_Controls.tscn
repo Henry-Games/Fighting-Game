@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://doqij2r7ifb2b"]
 
-[ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="1_288t3"]
-[ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_4rnvo"]
+[ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="1_xmwvl"]
+[ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_h1acr"]
 
 [node name="mobile_controls" type="Node"]
 
 [node name="AttackButton" type="TouchScreenButton" parent="."]
 position = Vector2(1626, 696)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "ATTACK"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="AttackButton"]
@@ -22,8 +22,8 @@ text = "ATTACK
 [node name="JumpButton" type="TouchScreenButton" parent="."]
 position = Vector2(1376, 835)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "JUMP"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="JumpButton"]
@@ -36,8 +36,8 @@ text = "JUMP
 [node name="Roll" type="TouchScreenButton" parent="."]
 position = Vector2(1494, 712)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "ROLL"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Roll"]
@@ -50,8 +50,8 @@ text = "ROLL
 [node name="Defend" type="TouchScreenButton" parent="."]
 position = Vector2(1635, 840)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "DEFEND"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Defend"]
@@ -64,8 +64,8 @@ text = "DEFEND
 [node name="SpecialAttacl" type="TouchScreenButton" parent="."]
 position = Vector2(1511, 837)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "SPECIAL"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SpecialAttacl"]
@@ -78,8 +78,8 @@ text = "SPECIAL
 [node name="LEFT" type="TouchScreenButton" parent="."]
 position = Vector2(128, 866)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "MOVE LEFT"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="LEFT"]
@@ -93,8 +93,8 @@ text = "Left
 [node name="RIGHT" type="TouchScreenButton" parent="."]
 position = Vector2(282, 866)
 scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_288t3")
-texture_pressed = ExtResource("2_4rnvo")
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
 action = "MOVE RIGHT"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="RIGHT"]

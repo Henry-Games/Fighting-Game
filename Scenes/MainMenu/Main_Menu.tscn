@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlgmqilr5i5k5"]
 
-[ext_resource type="Script" path="res://Scripts/MainMenu/MainMenu.gd" id="1_qotqr"]
-[ext_resource type="Script" path="res://Scripts/MainMenu/LocalJoinReceiver.gd" id="2_npxjh"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/Main_Menu.gd" id="1_r40j5"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/Local_Join_Receiver.gd" id="2_01uhw"]
 
-[node name="Lobby" type="Node2D" node_paths=PackedStringArray("JOIN_BUTTON", "HOST_BUTTON", "MessageLabel")]
-script = ExtResource("1_qotqr")
-JOIN_BUTTON = NodePath("Control/JOIN")
-HOST_BUTTON = NodePath("Control/HOST")
-MessageLabel = NodePath("Control/RichTextLabel")
+[node name="Lobby" type="Node2D" node_paths=PackedStringArray("join_button", "host_button", "message_label")]
+script = ExtResource("1_r40j5")
+join_button = NodePath("Control/JOIN")
+host_button = NodePath("Control/HOST")
+message_label = NodePath("Control/RichTextLabel")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -85,7 +85,7 @@ offset_left = 747.0
 offset_top = 523.0
 offset_right = 923.0
 offset_bottom = 916.0
-script = ExtResource("2_npxjh")
+script = ExtResource("2_01uhw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)

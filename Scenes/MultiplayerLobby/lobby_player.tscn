@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1fh86p7r8kxm"]
 
-[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/lobby_player.gd" id="1_f0jbx"]
-[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="2_2ogvi"]
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Lobby_Player.gd" id="1_5afx7"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/Network_Var_Sync.tscn" id="2_0tp7q"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("lineEdit", "alphabet_grid", "colour_grid", "disconnect_button", "TYPE_HERE_LABEL")]
+[node name="Control" type="Control" node_paths=PackedStringArray("name_line_edit", "alphabet_grid", "colour_grid", "disconnect_button", "type_here_label")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -13,12 +13,12 @@ offset_right = -906.0
 offset_bottom = -367.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_f0jbx")
-lineEdit = NodePath("LineEdit")
+script = ExtResource("1_5afx7")
+name_line_edit = NodePath("LineEdit")
 alphabet_grid = NodePath("Keyboard")
 colour_grid = NodePath("ColourSelect")
 disconnect_button = NodePath("Disconnect_Button")
-TYPE_HERE_LABEL = NodePath("TypeHere")
+type_here_label = NodePath("TypeHere")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0
@@ -334,8 +334,8 @@ focus_neighbor_bottom = NodePath("../../Disconnect_Button")
 disabled = true
 text = "PURPLE"
 
-[node name="NetworkVarSync" parent="." instance=ExtResource("2_2ogvi")]
-instance_file_path = "res://Scenes/MultiplayerLobby/lobby_player.tscn"
+[node name="NetworkVarSync" parent="." instance=ExtResource("2_0tp7q")]
+instance_file_path = "res://Scenes/MultiplayerLobby/Lobby_Player.tscn"
 reliable_sync_vars = {
 NodePath("../LineEdit"): ["text"],
 NodePath(".."): ["global_position", "lobby_grid_pos"]

@@ -1,20 +1,20 @@
 extends Node2D
 
-@export var JOIN_BUTTON : Button
-@export var HOST_BUTTON : Button
-@export var MessageLabel : RichTextLabel
+@export var join_button : Button
+@export var host_button : Button
+@export var message_label : RichTextLabel
 
 
 
 func _ready():
-	
 	Relayconnect.connect_to_relay_server("13.210.71.64")
-	Relayconnect.JOIN_SUCCESS.connect(_on_join_success)
-	Relayconnect.JOIN_FAIL.connect(_on_join_fail)
-	Relayconnect.HOST_SUCCESS.connect(_on_host_success)
-	Relayconnect.HOST_FAIL.connect(_on_host_fail)
-	Relayconnect.ON_RELAY_SERVER_FAIL.connect(_on_relay_server_fail)
-	Relayconnect.ON_RELAY_SERVER_CONNECT.connect(_on_relay_server_connect)
+	Relayconnect.JoinSuccessSignal.connect(_on_join_success)
+	Relayconnect.JoinFailSignal.connect(_on_join_fail)
+	Relayconnect.HostSuccessSignal.connect(_on_host_success)
+	Relayconnect.HostFailSignal.connect(_on_host_fail)
+	Relayconnect.RelayServerFailedSignal.connect(_on_relay_server_fail)
+	Relayconnect.RelayServerConnectedSignal.connect(_on_relay_server_connect)
+	Relayconnect.RelayServerDisconnectedSignal.connect(_on_relay_server_disconnected)
 	if Relayconnect.connected:
 		_on_relay_server_connect()
 	
@@ -28,7 +28,7 @@ func _on_host_success():
 	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/MultiplayerLobby/Multiplayer_Lobby.tscn",true])
 
 func _on_host_fail():
-	MessageLabel.text = "HOST FAILED"
+	message_label.text = "HOST FAILED"
 	print("HOST FAIL")
 
 func _on_join_success():
@@ -36,17 +36,22 @@ func _on_join_success():
 	print("JOIN SUCCESS")
 
 func _on_join_fail(error_message):
-	MessageLabel.text = "JOIN FAILED : %s" %error_message
+	message_label.text = "JOIN FAILED : %s" %error_message
 	print("JOIN FAIL")
 
 func _on_relay_server_connect():
 	if !Relayconnect.IS_LOCAL_HOST:
-		MessageLabel.text = ""
-		JOIN_BUTTON.disabled = false
-		HOST_BUTTON.disabled = false
+		message_label.text = ""
+		join_button.disabled = false
+		host_button.disabled = false
+
+func _on_relay_server_disconnected():
+	message_label.text = ""
+	join_button.disabled = false
+	host_button.disabled = false
 
 func _on_relay_server_fail():
-	MessageLabel.text = "CONNECTION TO RELAY SERVER FAILED"
+	message_label.text = "CONNECTION TO RELAY SERVER FAILED"
 
 func _on_host_button_down():
 	Relayconnect.host()

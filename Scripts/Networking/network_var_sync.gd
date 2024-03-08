@@ -1,10 +1,10 @@
+class_name Network_Var_Sync
 extends Node2D
-## USE Destroy_Networked to destroy a node at runtime if there is code to be hooked into the destrcution of the ndoe
-## this is to avoid code being run when changing scenes
-signal DestroyingOnPurpose
+signal DestroyingOnPurposeSignal
 var parent
 # Instance file path for replication of this node on connecting clients
 @export var instance_file_path : String
+
 # Reliable sync vars, only update on variable change and will always go through
 # slower, but reliable
 @export var reliable_sync_vars = {} 
@@ -12,7 +12,6 @@ var parent
 @export var unreliable_sync_vars = {}
 # These variables are reliably synced but will only sync data from the Host
 @export var always_server_sync_vars = {}
-
 
 # Object SyncID, The name of the object is also the ObjectSyncID if spawned by GameManager
 @export var sync_id = "" : set = onSyncIdChange
@@ -208,6 +207,6 @@ func Destroy_Networked():
 	
 @rpc("any_peer","call_local","reliable")
 func Destroy_RPC():
-	DestroyingOnPurpose.emit()
+	DestroyingOnPurposeSignal.emit()
 	get_parent().queue_free()
 

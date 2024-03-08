@@ -1,15 +1,16 @@
 extends Node2D
 
 ### ALL CODE PERTAINING TO RELAY CONNECTION
-signal JOIN_SUCCESS
-signal JOIN_FAIL(error_message)
-signal HOST_SUCCESS
-signal HOST_FAIL(error_message)
-signal ON_RELAY_SERVER_CONNECT()
-signal ON_RELAY_SERVER_FAIL()
-signal ON_RELAY_SERVER_DISCONNECT()
+signal JoinSuccessSignal
+signal JoinFailSignal(error_message)
+signal HostSuccessSignal
+signal HostFailSignal(error_message)
+signal RelayServerConnectedSignal
+signal RelayServerFailedSignal
+signal RelayServerDisconnectedSignal
 
-signal NETWORK_TICK(unix_time)
+const relay_server_id = 0
+
 var connected = false
 var network_ticking_started := false
 @export var typed_room_code= ""
@@ -42,9 +43,9 @@ func connect_to_relay_server(ip : String):
 	
 # When connected to relay server register player to the database and emit connection signal
 func _on_connected_to_server():
-	_resgister_player.rpc_id(0)
+	resgister_player.rpc_id(relay_server_id)
 	connected = true
-	ON_RELAY_SERVER_CONNECT.emit()
+	RelayServerConnectedSignal.emit()
 	
 	if IS_LOCAL_HOST:
 		print(IS_LOCAL_HOST)
@@ -57,12 +58,12 @@ func _on_connected_to_server():
 	
 #Register player command
 @rpc("any_peer","call_remote","reliable")
-func _resgister_player():
+func resgister_player():
 	pass
 
 func _on_connected_fail():
 	connected = false
-	ON_RELAY_SERVER_FAIL.emit()
+	RelayServerFailedSignal.emit()
 	
 
 # if relay server disconncets Return to main menu and reset important values to default
@@ -75,18 +76,18 @@ func _on_server_disconnected():
 	joining_local_host = false
 	HOST_ID = 0
 	
-	GameManager.change_scene_rpc("res://Scenes/MainMenu/MainMenu.tscn",true)
+	GameManager.change_scene_rpc("res://Scenes/MainMenu/Main_Menu.tscn",true)
 	
 	
 # Host Using remote relay server
 func host():
 	if multiplayer.multiplayer_peer.CONNECTION_CONNECTED:
-		host_rpc.rpc_id(0)
+		host_rpc.rpc_id(relay_server_id)
 
 # Join room using remote relay server
 func join():
 	if multiplayer.multiplayer_peer.CONNECTION_CONNECTED:
-		join_rpc.rpc_id(0,typed_room_code)
+		join_rpc.rpc_id(relay_server_id,typed_room_code)
 #Dummy for cmd being sent to server
 @rpc("any_peer","call_remote","reliable")
 func host_rpc():
@@ -98,11 +99,11 @@ func host_success_rpc(room_code : String,room_info : Dictionary):
 	HOST_ID = ROOM_DATA.host_id
 	ROOM_CODE = ROOM_DATA.room_code
 	IS_HOST = true
-	HOST_SUCCESS.emit()
+	HostSuccessSignal.emit()
 #receives host fail from relay server
 @rpc("authority","call_remote","reliable")
 func host_fail_rpc(room_code : String, error_message : String):
-	HOST_FAIL.emit(error_message)
+	HostFailSignal.emit(error_message)
 
 #Dummy for cmd being sent to server
 @rpc("any_peer","call_remote","reliable")	
@@ -118,7 +119,7 @@ func join_success_rpc(room_info : Dictionary,player_joined_id):
 		HOST_ID = ROOM_DATA.host_id
 		ROOM_CODE = ROOM_DATA.room_code
 		IS_HOST = false
-		JOIN_SUCCESS.emit()
+		JoinSuccessSignal.emit()
 	#The host sends current game data for synchronization
 	if IS_HOST:
 		GameManager.sync_game_data(player_joined_id)
@@ -127,7 +128,7 @@ func join_success_rpc(room_info : Dictionary,player_joined_id):
 # Join Failed received from server only by player that is trying to join
 @rpc("authority","call_remote","reliable")
 func join_fail_rpc(room_code : String, error_message : String):
-	JOIN_FAIL.emit(error_message)
+	JoinFailSignal.emit(error_message)
 	print(error_message)
 	pass
 
@@ -171,7 +172,7 @@ func room_closed():
 	IS_HOST = false
 	IS_LOCAL_HOST = false
 	HOST_ID = 0
-	get_tree().change_scene_to_file("res://Scenes/MainMenu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/MainMenu/Main_Menu.tscn")
 
 
 # Receive Room Data from relay server (as in room code and current players and their ids)
@@ -186,9 +187,9 @@ func game_started_rpc(started : bool):
 
 # When local hosting create relay server and connect to self
 func local_host():
-	
+	print("Here")
 	IS_LOCAL_HOST = true
-	var object_to_spawn = load("res://Scenes/Networking/RelayServer.tscn") as PackedScene
+	var object_to_spawn = load("res://Scenes/Networking/Relay_Server.tscn") as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
 	get_tree().root.add_child(object_instance)
 	connect_to_relay_server("127.0.0.1")

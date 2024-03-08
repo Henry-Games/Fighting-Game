@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://d1rjrapwgx66k"]
 
-[ext_resource type="Script" path="res://Scripts/fire_knight/fire_knight.gd" id="1_rrder"]
-[ext_resource type="Texture2D" uid="uid://bybctm30cqnsr" path="res://Assets/fire_knight/fire_FREE_SpriteSheet_288x128.png" id="2_u6uds"]
-[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="3_v72e2"]
+[ext_resource type="Script" path="res://Scripts/FireKnight/Fire_Knight.gd" id="1_xs1k3"]
+[ext_resource type="Texture2D" uid="uid://bybctm30cqnsr" path="res://Assets/fire_knight/fire_FREE_SpriteSheet_288x128.png" id="2_t7fjp"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/Network_Var_Sync.tscn" id="3_lvhr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbue"]
 size = Vector2(43.3333, 51.3333)
@@ -515,12 +515,12 @@ _data = {
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 10
 scale = Vector2(1.5, 1.5)
-script = ExtResource("1_rrder")
+script = ExtResource("1_xs1k3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -63)
-texture = ExtResource("2_u6uds")
+texture = ExtResource("2_t7fjp")
 hframes = 28
 vframes = 14
 
@@ -540,8 +540,8 @@ libraries = {
 "": SubResource("AnimationLibrary_62ojg")
 }
 
-[node name="NetworkVarSync" parent="." instance=ExtResource("3_v72e2")]
-instance_file_path = "res://Scenes/fire_knight.tscn"
+[node name="NetworkVarSync" parent="." instance=ExtResource("3_lvhr4")]
+instance_file_path = "res://Scenes/FireKnight/Fire_Knight.tscn"
 unreliable_sync_vars = {
 NodePath(".."): ["global_position", "health"]
 }

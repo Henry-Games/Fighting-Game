@@ -1,23 +1,30 @@
 extends Node2D
-@export var StartGameButton:Button
-@export var IpAddressText:RichTextLabel
+@export var start_game_button:Button
+@export var local_broadcast:RichTextLabel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !Relayconnect.IS_LOCAL_HOST:
-		IpAddressText.queue_free()
+		local_broadcast.queue_free()
 	
 	if Relayconnect.IS_HOST:
 		Relayconnect.game_started_rpc.rpc_id(0,false)	
 		for puppet_master in get_tree().get_nodes_in_group("in_game"):
-			spawn_lobby_player(puppet_master)
+			_spawn_lobby_player(puppet_master)
 	
-	GameManager.SPAWN_PUPPET_SIGNAL.connect(spawn_lobby_player)
+	GameManager.SpawnPuppetSignal.connect(_spawn_lobby_player)
 	GameManager.spawn_puppet_masters()
 	
 
+func _spawn_lobby_player(puppet_master : Puppet_Master):
+	spawn_lobby_player_cmd.rpc_id(Relayconnect.HOST_ID,puppet_master.network_node.sync_id)
 		
+@rpc("any_peer","call_local","reliable")
+func spawn_lobby_player_cmd(puppet_master_sync_id):
+	var puppet_master : Puppet_Master
+	for node in get_tree().get_nodes_in_group("puppet_masters"):
+		if node.name == puppet_master_sync_id:
+			puppet_master = node
 	
-func spawn_lobby_player(puppet_master):
 	var found_pos = false
 	var i = 0
 
@@ -35,9 +42,8 @@ func spawn_lobby_player(puppet_master):
 			var x_pos = x_raw * 250
 			var y_pos = y_raw * 300
 			found_pos = true
-			var player = GameManager.spawn_object("res://Scenes/MultiplayerLobby/lobby_player.tscn",Vector2(x_pos,y_pos),0,puppet_master.name)
+			var player = GameManager.spawn_object("res://Scenes/MultiplayerLobby/Lobby_Player.tscn",Vector2(x_pos,y_pos),0,puppet_master.name)
 			player.lobby_grid_pos = Vector2(x_raw,y_raw)
-		
 		i+=1
 
 	
@@ -47,15 +53,15 @@ func _process(delta):
 		set_process(false)
 	
 	if get_tree().get_nodes_in_group("lobby_players").size() >= 1:
-		StartGameButton.disabled = false
+		start_game_button.disabled = false
 	else:
-		StartGameButton.disabled = true
+		start_game_button.disabled = true
 		
 
 
 func _on_start_game_button_down():
 	Relayconnect.game_started_rpc.rpc_id(0,true)
-	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/TestRoom.tscn",false])
+	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/Test_Room.tscn",false])
 
 
 

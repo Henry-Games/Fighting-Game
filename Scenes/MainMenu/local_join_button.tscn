@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dkc2h6oufdqe8"]
 
-[ext_resource type="Script" path="res://Scripts/MainMenu/local_join_button.gd" id="1_eq3gx"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/Local_Join_Button.gd" id="1_gjxdr"]
 
 [node name="LocalJoin" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_eq3gx")
+script = ExtResource("1_gjxdr")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0

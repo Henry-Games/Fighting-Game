@@ -1,34 +1,20 @@
 extends Node2D
 
-var host_started = false
+# Called by puppet masters when they want to create a puppet
+signal SpawnPuppetSignal(puppet_master)
 
-#Objects to sync dictionary, mainly to make sure network ids dont double up
+var host_started = false
+#Objects to sync dictionary, mainly to make sure network ids dont double up TODO replace with groups or list
 var objects_to_sync = {}
 # Stores current scene for replication on player join
 var current_scene
 # Store all current controller puppet masters : TODO replace with groups instead
 var controller_puppet_masters = {}
-# Characters for ObjectSyncIDs add more if needed
-var CHARS = "1234567890";
 
-# Called by puppet masters when they want to create a puppet
-signal SPAWN_PUPPET_SIGNAL(puppet_master)
+const SYNC_ID_CHARS = "1234567890";
 
-# Creates unique code for Object Synchroinizing
-func create_unique_object_code():
-	var id = ""
-	for n in 7:
-		var random_number =  randi_range(0,CHARS.length() -1)
-		var random_char = CHARS[random_number]
-		id+=random_char
-		
-	if objects_to_sync.has(id):
-		return create_unique_object_code()
-	
-	return id
 
 func _ready():
-	# Add/Remove puppetmasters when a controller Connects/Disconnects
 	Input.joy_connection_changed.connect(on_joy_connection_changed)
 
 #region Puppet Master Spawning/Destruction
@@ -42,7 +28,7 @@ func spawn_puppet_masters():
 	puppet_master_keyboard_touch.controller = false;
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
 		puppet_master_keyboard_touch.mobile = true
-	puppet_master_keyboard_touch._network_ready.rpc_id(Relayconnect.HOST_ID)
+	SpawnPuppetSignal.emit(puppet_master_keyboard_touch)
 		
 	#Setup puppet masters for controllers currently connected
 	for controller_id in Input.get_connected_joypads():
@@ -57,9 +43,10 @@ func add_controller_puppet_master(new_device_id):
 	controller_puppet_masters[new_device_id] = puppet_master_controller
 
 func remove_controller_puppet_master(device_id):
+	controller_puppet_masters[device_id].network_node.DestroyNetworked()
 	Relayconnect.call_rpc_room(controller_puppet_masters[device_id].DestroySelf,[])
-	controller_puppet_masters.erase(device_id)
 	
+
 func on_joy_connection_changed(device_id : int,connected : bool):
 	if !host_started:
 		return
@@ -74,8 +61,22 @@ func on_joy_connection_changed(device_id : int,connected : bool):
 #region Synchronised Object Spawning
 # have local and remote functions for spawning seperate as RPCs ,even when called locally, do not return
 # the object spawned, makes it harder to spawn an object and initialize its value.
+
+# Creates unique code for Object Synchroinizing
+func create_unique_sync_id():
+	var id = ""
+	for n in 7:
+		var random_number =  randi_range(0,SYNC_ID_CHARS.length() -1)
+		var random_char = SYNC_ID_CHARS[random_number]
+		id+=random_char
+		
+	if objects_to_sync.has(id):
+		return create_unique_sync_id()
+	
+	return id
+
 func spawn_object(object_path : String,pos : Vector2,rot : float,parent_id : String = "",owner_id : int = 0):
-	var object_id = create_unique_object_code()
+	var object_id = create_unique_sync_id()
 	var object_to_spawn = load(object_path) as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
 	object_instance.global_position = pos
@@ -117,7 +118,8 @@ func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id :
 		objects_to_sync[parent_id].add_child(object_instance)
 	else:
 		add_child(object_instance)
-		
+
+
 #endregion
 
 # Custom Change scene function which -
@@ -126,7 +128,6 @@ func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id :
 # -	Potentially keep or destroy puppetmasters if puppetmater info is needed in the next scene
 @rpc("any_peer","call_local","reliable")
 func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
-	
 	if!destroy_puppet_masters:
 		# Destroy children of puppet master
 		for puppet_master in get_tree().get_nodes_in_group("puppet_masters"):
@@ -148,6 +149,7 @@ func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
 	current_scene = scene_path
 
 
+#region Sync player game data on join
 # Get tree structure for all children of Game Manager for replication on newly joined client
 func sync_game_data(target_player):
 	var dict_to_send = Recursive_child(self)
@@ -196,3 +198,6 @@ func recursive_build_scene(node_dictionary,parent_node):
 		
 		# If the node has children, build those children
 		recursive_build_scene(node_info.children,object_instance)
+
+#endregion
+
