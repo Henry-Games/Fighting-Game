@@ -49,7 +49,6 @@ var key_bindings_controller = {
 
 @onready var network_node : Network_Var_Sync = $NetworkVarSync
 func _ready():
-	print("READY")
 	add_to_group("puppet_masters")
 
 @rpc("any_peer","call_local","reliable")

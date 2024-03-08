@@ -21,7 +21,7 @@ func _ready():
 
 ## CREATES PLAYER ON JOIN
 @rpc("any_peer","call_remote","reliable")
-func resgister_player():
+func _resgister_player():
 	var new_player_id = multiplayer.get_remote_sender_id()
 	player_dict[new_player_id] = {
 		"player_name":"EMPTY",

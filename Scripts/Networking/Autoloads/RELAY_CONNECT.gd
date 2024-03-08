@@ -43,12 +43,11 @@ func connect_to_relay_server(ip : String):
 	
 # When connected to relay server register player to the database and emit connection signal
 func _on_connected_to_server():
-	resgister_player.rpc_id(relay_server_id)
+	_resgister_player.rpc_id(relay_server_id)
 	connected = true
 	RelayServerConnectedSignal.emit()
 	
 	if IS_LOCAL_HOST:
-		print(IS_LOCAL_HOST)
 		host()
 	# Instantly join selected local room if joining through local broadcast
 	if joining_local_host:
@@ -58,7 +57,7 @@ func _on_connected_to_server():
 	
 #Register player command
 @rpc("any_peer","call_remote","reliable")
-func resgister_player():
+func _resgister_player():
 	pass
 
 func _on_connected_fail():
@@ -187,7 +186,6 @@ func game_started_rpc(started : bool):
 
 # When local hosting create relay server and connect to self
 func local_host():
-	print("Here")
 	IS_LOCAL_HOST = true
 	var object_to_spawn = load("res://Scenes/Networking/Relay_Server.tscn") as PackedScene
 	var object_instance = object_to_spawn.instantiate() 
