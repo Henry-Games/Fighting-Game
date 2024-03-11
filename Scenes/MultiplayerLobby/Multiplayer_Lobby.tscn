@@ -1,24 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cglna433cd3s0"]
+[gd_scene load_steps=7 format=3 uid="uid://cglna433cd3s0"]
 
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
 [ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/Room_Code_Display.tscn" id="2_tikey"]
 [ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
+[ext_resource type="Texture2D" uid="uid://cyoqdn3c4cegn" path="res://Assets/start_button/start_button_neutral.png" id="4_x1nu6"]
+[ext_resource type="Texture2D" uid="uid://f5gkpv1d6w4y" path="res://Assets/start_button/start_button_pressed.png" id="5_6jj2c"]
+[ext_resource type="Texture2D" uid="uid://d1liyt46pa1e3" path="res://Assets/start_button/start_button_hover.png" id="6_vjdtp"]
 
 [node name="MultiplayerLobby" type="Node2D" node_paths=PackedStringArray("start_game_button", "local_broadcast")]
 script = ExtResource("1_qmw6p")
-start_game_button = NodePath("StartGame")
+start_game_button = NodePath("TextureButton")
 local_broadcast = NodePath("LocalBroadcast")
-
-[node name="StartGame" type="Button" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 1022.0
-offset_top = 584.0
-offset_right = 1128.0
-offset_bottom = 615.0
-grow_vertical = 0
-text = "START GAME"
 
 [node name="RoomCodeDisplay" parent="." instance=ExtResource("2_tikey")]
 offset_left = 907.0
@@ -44,5 +36,13 @@ offset_top = 506.0
 offset_right = 1274.0
 offset_bottom = 531.0
 
-[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 901.0
+offset_top = 426.0
+offset_right = 1081.0
+offset_bottom = 490.0
+texture_normal = ExtResource("4_x1nu6")
+texture_pressed = ExtResource("5_6jj2c")
+texture_hover = ExtResource("6_vjdtp")
+
 [connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]

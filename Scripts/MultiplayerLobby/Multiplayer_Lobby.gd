@@ -1,5 +1,5 @@
 extends Node2D
-@export var start_game_button:Button
+@export var start_game_button:TextureButton
 @export var local_broadcast:RichTextLabel
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -19,7 +19,6 @@ func onSyncIdChange(new_sync_id):
 	sync_id = new_sync_id
 	#If this is not going to be controlled by antoher player and you are not the host then get data from the host
 	
-	
 
 var multiplayer_id
 # Decides whether to be synced by the local player or the host
