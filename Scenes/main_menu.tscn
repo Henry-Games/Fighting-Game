@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddhf54feanujc"]
+[gd_scene load_steps=5 format=3 uid="uid://ddhf54feanujc"]
 
 [ext_resource type="Texture2D" uid="uid://bj55fa51y1iaj" path="res://Assets/Crorrsss.png" id="1_67510"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_nckdv"]
 [ext_resource type="Texture2D" uid="uid://driwuu6g75qd4" path="res://Assets/image_2024-03-04_204227406.png" id="1_p1a4s"]
+[ext_resource type="AudioStream" uid="uid://cr5msdl6nffwd" path="res://Assets/Sounds/lobby (1).mp3" id="4_1fl8o"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_nckdv")
@@ -43,6 +44,11 @@ offset_top = 400.0
 offset_right = 431.0
 offset_bottom = 514.0
 text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1fl8o")
+volume_db = -25.0
+autoplay = true
 
 [connection signal="pressed" from="Play_Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Options_Button" to="." method="_on_button_2_pressed"]
