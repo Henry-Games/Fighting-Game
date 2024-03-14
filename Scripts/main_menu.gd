@@ -12,13 +12,13 @@ func _process(delta):
 
 
 func _on_button_pressed():
-	get_tree().change_scene_to_file("MainMenu.tscn")
+	GameManager.change_scene_rpc("res://Scenes/MainMenu/MainMenu.tscn", true)
 	print("Play")
 	pass
 
 
 func _on_button_2_pressed():
-	# get.tree().change_scene_to_file()
+	# get_tree().change_scene_to_file()
 	print("Options")
 	pass
 
