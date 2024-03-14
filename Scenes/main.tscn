@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr2umbblh3ugk"]
+[gd_scene load_steps=8 format=3 uid="uid://cr2umbblh3ugk"]
 
 [ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="1_7hnbh"]
 [ext_resource type="Script" path="res://Scenes/TestRoom.gd" id="1_h635n"]
 [ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_4gy06"]
 [ext_resource type="Texture2D" uid="uid://b1igchrhjrehd" path="res://Assets/Tileset.png" id="3_fmsh2"]
+[ext_resource type="AudioStream" uid="uid://5q6k573kn74l" path="res://Assets/Sounds/battle.mp3" id="5_3sqaj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq0cu"]
 texture = ExtResource("3_fmsh2")
@@ -237,3 +238,8 @@ scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_0gxp1")
 format = 2
 layer_0/tile_data = PackedInt32Array(589843, 131072, 0, 589842, 65536, 0, 589841, 196608, 0, 589840, 196608, 0, 589838, 196608, 0, 589834, 196608, 0, 589833, 196608, 0, 589829, 65536, 0, 589835, 196608, 0, 589836, 196608, 0, 589837, 196608, 0, 589832, 196608, 0, 589831, 196608, 0, 589839, 196608, 0, 655365, 65536, 1, 655379, 131072, 1, 720901, 65536, 2, 720915, 131072, 2, 720914, 65536, 2, 720913, 65536, 2, 720912, 65536, 2, 720911, 65536, 2, 720910, 65536, 2, 720909, 65536, 2, 720908, 65536, 2, 720907, 65536, 2, 720906, 65536, 2, 720905, 65536, 2, 720902, 65536, 2, 655366, 196608, 2, 655367, 65536, 1, 655368, 65536, 1, 655369, 65536, 1, 655370, 65536, 1, 655371, 196608, 1, 655372, 65536, 1, 655373, 196608, 2, 655374, 65536, 1, 655375, 65536, 1, 655376, 65536, 1, 655378, 196608, 1, 655377, 196608, 2, 589830, 65536, 0, 589828, 0, 0, 655364, 0, 1, 720900, 0, 2, 720903, 65536, 2, 720904, 65536, 2)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3sqaj")
+volume_db = -25.0
+autoplay = true
