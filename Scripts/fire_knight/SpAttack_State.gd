@@ -8,7 +8,6 @@ func _ready():
 	player = get_parent()
 	
 	player.animation.play("sp_attack", -1, 1.25)
-	player.audio_
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

@@ -4,7 +4,6 @@ const SPEED = 250.0
 const JUMP_VELOCITY = -250.0
 @onready var animation = $AnimationPlayer
 @onready var sprite_2d = $Sprite2D
-@onready var audio_stream_player_2d = $AudioStreamPlayer2D
 
 var damage = 10;
 var health = 100;
@@ -41,14 +40,12 @@ func _on_animation_player_animation_finished(anim_name):
 	change_state("idle")
 
 
-
 func _on_attack_hit_body_entered(body):
 	if !$NetworkVarSync.is_local_player:
 		return
 	
 	if body.get_class() == "CharacterBody2D" and body != self:
 		body.TakeDamage(damage, 10)
-		
 		
 
 func TakeDamage(damage : int, knockback:float):

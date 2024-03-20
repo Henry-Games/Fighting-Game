@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/TestRoom.gd" id="1_h635n"]
 [ext_resource type="Texture2D" uid="uid://c71lmdungnd2e" path="res://Assets/CloudsFront.png" id="2_4gy06"]
 [ext_resource type="Texture2D" uid="uid://b1igchrhjrehd" path="res://Assets/Tileset.png" id="3_fmsh2"]
-[ext_resource type="AudioStream" uid="uid://5q6k573kn74l" path="res://Assets/Sounds/battle.mp3" id="5_3sqaj"]
+[ext_resource type="AudioStream" uid="uid://ckcq0jtv5a8w0" path="res://Assets/Sounds/battle.mp3" id="5_3sqaj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq0cu"]
 texture = ExtResource("3_fmsh2")

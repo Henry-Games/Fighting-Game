@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bj55fa51y1iaj" path="res://Assets/Crorrsss.png" id="1_67510"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_nckdv"]
 [ext_resource type="Texture2D" uid="uid://driwuu6g75qd4" path="res://Assets/image_2024-03-04_204227406.png" id="1_p1a4s"]
-[ext_resource type="AudioStream" uid="uid://cr5msdl6nffwd" path="res://Assets/Sounds/lobby (1).mp3" id="4_1fl8o"]
-[ext_resource type="AudioStream" uid="uid://bjdhntxb47e64" path="res://Assets/Sounds/Button_noise.mp3" id="4_d2t15"]
+[ext_resource type="AudioStream" uid="uid://6y4j1hvdwtcy" path="res://Assets/Sounds/lobby.mp3" id="4_0bbdn"]
+[ext_resource type="AudioStream" uid="uid://dhvghuqxgbiml" path="res://Assets/Sounds/button_noise.mp3" id="5_5nx6j"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_nckdv")
@@ -47,14 +47,14 @@ offset_bottom = 514.0
 text = "Exit"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_1fl8o")
+stream = ExtResource("4_0bbdn")
 volume_db = -25.0
 autoplay = true
 
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Button_sound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("4_d2t15")
+stream = ExtResource("5_5nx6j")
 volume_db = -15.0
 
 [connection signal="pressed" from="Play_Button" to="." method="_on_button_pressed"]
