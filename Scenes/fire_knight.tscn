@@ -546,5 +546,35 @@ unreliable_sync_vars = {
 NodePath(".."): ["global_position"]
 }
 
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Fire_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="Jump_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="Hit_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="Spinning_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="SwordSwing_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="Explosion_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
+[node name="Death_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+
 [connection signal="body_entered" from="Sprite2D/AttackHit" to="." method="_on_attack_hit_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -4,6 +4,7 @@ const SPEED = 250.0
 const JUMP_VELOCITY = -250.0
 @onready var animation = $AnimationPlayer
 @onready var sprite_2d = $Sprite2D
+@onready var audio_stream_player_2d = $AudioStreamPlayer2D
 
 var damage = 10;
 var health = 100;
