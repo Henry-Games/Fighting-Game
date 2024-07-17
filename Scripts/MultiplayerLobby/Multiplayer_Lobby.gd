@@ -9,6 +9,7 @@ var puppet_master_sync_id_2 : set = p2_changed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MUSIC_MANAGER.change_music("res://Assets/Sounds/lobby.mp3");
 	if !Relayconnect.IS_LOCAL_HOST:
 		local_broadcast.queue_free()
 	

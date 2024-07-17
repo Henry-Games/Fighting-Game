@@ -1,9 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://d1rjrapwgx66k"]
+[gd_scene load_steps=29 format=3 uid="uid://d1rjrapwgx66k"]
 
 [ext_resource type="Script" path="res://Scripts/FireKnight/Fire_Knight.gd" id="1_xs1k3"]
 [ext_resource type="Texture2D" uid="uid://bybctm30cqnsr" path="res://Assets/fire_knight/fire_FREE_SpriteSheet_288x128.png" id="2_t7fjp"]
-[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/Network_Var_Sync.tscn" id="3_lvhr4"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="3_lvhr4"]
+[ext_resource type="AudioStream" uid="uid://c6vrhxydaee40" path="res://Assets/Sounds/fire_attack.mp3" id="4_cdnnc"]
 [ext_resource type="PackedScene" uid="uid://cgndai8wwdcil" path="res://Scenes/FireKnight/Health_Bar.tscn" id="4_kgyad"]
+[ext_resource type="AudioStream" uid="uid://dckivr7andffa" path="res://Assets/Sounds/Jump.mp3" id="5_15tex"]
+[ext_resource type="AudioStream" uid="uid://b8413wt21nfe7" path="res://Assets/Sounds/Hit.mp3" id="6_s2q24"]
+[ext_resource type="AudioStream" uid="uid://d155qqqhr2w6m" path="res://Assets/Sounds/spin_attack.mp3" id="7_pbvww"]
+[ext_resource type="AudioStream" uid="uid://byv6r2mokjkov" path="res://Assets/Sounds/Whoosh.mp3" id="8_i243n"]
+[ext_resource type="AudioStream" uid="uid://c2fq61540yiv3" path="res://Assets/Sounds/Explosion.mp3" id="9_qmk75"]
+[ext_resource type="AudioStream" uid="uid://bibvk1lj26bgo" path="res://Assets/Sounds/Death_Grunt.mp3" id="10_cu5d8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbue"]
 size = Vector2(43.3333, 51.3333)
@@ -73,6 +80,90 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(43.6667, 37.3333)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sounds/SwordSwing_sound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sounds/Spinning_sound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sounds/Explosion_sound:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sounds/Death_sound:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sounds/Hit_sound:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Sounds/Jump_sound:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Sounds/Fire_attack_sound:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_0b2io"]
 resource_name = "air_attack"
@@ -112,6 +203,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(43.3333, 41.3334)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/SwordSwing_sound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_vb7ii"]
@@ -163,6 +266,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(43.6667, 37.3333)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/SwordSwing_sound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_66pj8"]
@@ -216,6 +331,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(43.3333, 41.5), Vector2(80.6667, 28.0833), Vector2(58.6667, 49.3333)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Spinning_sound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_esno2"]
 resource_name = "attack3"
@@ -268,6 +395,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(69.3333, 58)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Explosion_sound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_w0kk3"]
 resource_name = "death"
@@ -282,6 +421,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 376]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sounds/Death_sound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_gqnpe"]
@@ -312,6 +463,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [336, 337, 338, 339, 340, 341]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sounds/Hit_sound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_84170"]
@@ -396,6 +559,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(3, -21.5), Vector2(2, -28.6667)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/Jump_sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_rxf7c"]
@@ -493,6 +668,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(54.8333, 23.3333)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sounds/Fire_attack_sound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sounds/SwordSwing_sound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_62ojg"]
@@ -602,6 +801,46 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 70
 text = "P1 Name"
 horizontal_alignment = 2
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Fire_attack_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("4_cdnnc")
+
+[node name="Jump_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("5_15tex")
+volume_db = -10.0
+
+[node name="Hit_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("6_s2q24")
+
+[node name="Spinning_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("7_pbvww")
+volume_db = -10.0
+
+[node name="SwordSwing_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("8_i243n")
+
+[node name="Explosion_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("9_qmk75")
+volume_db = 10.0
+
+[node name="Death_sound" type="AudioStreamPlayer2D" parent="Sounds"]
+position = Vector2(1.99999, -46)
+scale = Vector2(1.5, 1.5)
+stream = ExtResource("10_cu5d8")
 
 [connection signal="body_entered" from="Sprite2D/AttackHit" to="." method="_on_attack_hit_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

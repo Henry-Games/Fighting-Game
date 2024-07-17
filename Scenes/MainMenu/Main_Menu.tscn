@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlgmqilr5i5k5"]
+[gd_scene load_steps=6 format=3 uid="uid://dywsmk56x1nqb"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/Main_Menu.gd" id="1_r40j5"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/Local_Join_Receiver.gd" id="2_01uhw"]
 [ext_resource type="Theme" uid="uid://b5lu2qaepac7c" path="res://Assets/Theme/main_theme.tres" id="2_h5xx4"]
-[ext_resource type="Texture2D" uid="uid://c4pqynan608ny" path="res://Assets/lobby_background.png.png" id="3_p41kd"]
+[ext_resource type="Texture2D" uid="uid://driwuu6g75qd4" path="res://Assets/image_2024-03-04_204227406.png" id="2_rt6en"]
 [ext_resource type="Texture2D" uid="uid://c38miep0tbsh2" path="res://Assets/Theme/RichTextLabel/NinePatchBackground.png" id="4_l8wm1"]
 
 [node name="Lobby" type="Node2D" node_paths=PackedStringArray("join_button", "host_button", "message_label")]
@@ -14,13 +14,16 @@ message_label = NodePath("CanvasLayer/Control/RichTextLabel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Bakcground" type="NinePatchRect" parent="CanvasLayer"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_p41kd")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_rt6en")
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3

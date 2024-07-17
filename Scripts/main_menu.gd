@@ -5,6 +5,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MUSIC_MANAGER.change_music("res://Assets/Sounds/lobby.mp3");
 	pass # Replace with function body.
 
 
@@ -16,7 +17,7 @@ func _process(delta):
 func _on_button_pressed():
 	button_sound.play();
 	await get_tree().create_timer(0.2).timeout
-	GameManager.change_scene_rpc("res://Scenes/MainMenu/MainMenu.tscn", true)
+	GameManager.change_scene_rpc("res://Scenes/MainMenu/Main_Menu.tscn", true)
 	print("Play")
 	pass
 

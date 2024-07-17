@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fighting_Game"
-run/main_scene="res://Scenes/MainMenu/Main_Menu.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 run/size/viewport_height=648
@@ -21,6 +21,7 @@ run/size/viewport_width=1152
 
 Relayconnect="*res://Scripts/Networking/Autoloads/RELAY_CONNECT.gd"
 GameManager="*res://Scripts/Networking/Autoloads/GAME_MANAGER.gd"
+MUSIC_MANAGER="*res://Scripts/Networking/Autoloads/MUSIC_MANAGER.gd"
 
 [display]
 

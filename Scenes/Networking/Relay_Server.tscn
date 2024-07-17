@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://fp1fpqi7l2nv"]
+[gd_scene load_steps=2 format=3 uid="uid://ce6832wh275f2"]
 
 [ext_resource type="Script" path="res://Scripts/Networking/Relay_Server.gd" id="1_hxa52"]
 

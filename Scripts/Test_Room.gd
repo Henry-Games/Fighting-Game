@@ -6,11 +6,12 @@ var charcters = {
 var game_finished = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MUSIC_MANAGER.change_music("res://Assets/Sounds/battle.mp3")
 	if !Relayconnect.IS_HOST:
 		return
 	var i = 0
 	for puppet_master : Puppet_Master in get_tree().get_nodes_in_group("in_game"):
-		var player = GameManager.spawn_object(charcters[puppet_master.character_selected],Vector2(280 + (i *500),300),0,puppet_master.name,puppet_master.network_node.owner_id)
+		var player = GameManager.spawn_object(charcters[puppet_master.character_selected],Vector2(400 + (i *300),300),0,puppet_master.name,puppet_master.network_node.owner_id)
 		var network_node = player.get_node("NetworkVarSync")
 		i += 1
 

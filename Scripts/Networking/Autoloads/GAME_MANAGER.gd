@@ -28,7 +28,8 @@ func spawn_puppet_masters():
 	puppet_master_keyboard_touch.controller = false;
 	if OS.get_name() == "Android" or OS.get_name() == "iOS":
 		puppet_master_keyboard_touch.mobile = true
-	SpawnPuppetSignal.emit(puppet_master_keyboard_touch)
+		
+	#SpawnPuppetSignal.emit(puppet_master_keyboard_touch)
 		
 	#Setup puppet masters for controllers currently connected
 	for controller_id in Input.get_connected_joypads():

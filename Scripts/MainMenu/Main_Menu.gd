@@ -7,6 +7,7 @@ extends Node2D
 
 
 func _ready():
+	MUSIC_MANAGER.change_music("res://Assets/Sounds/lobby.mp3");
 	host_button.grab_focus()
 	Relayconnect.connect_to_relay_server("13.210.71.64")
 	Relayconnect.JoinSuccessSignal.connect(_on_join_success)
