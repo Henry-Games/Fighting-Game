@@ -106,10 +106,11 @@ func _ready():
 	
 	#If not host or local authority then ask for sync data from host
 	if !Relayconnect.IS_HOST and !is_local_authority:
+
 		on_spawn_sync.rpc_id(Relayconnect.HOST_ID)
 	
 	#If this is local authority and not the local player then get data from owning player
-	if is_local_authority and !is_local_player:
+	if is_local_authority and !is_local_player and owner_id != 0:
 		on_spawn_sync.rpc_id(owner_id)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -179,7 +180,7 @@ func on_spawn_sync():
 # RPC functions for sending and receiving the sync data
 @rpc("any_peer","call_remote","reliable")
 func reliable_sync(sync_dict : Dictionary):
-	print(sync_dict)
+
 	for key in sync_dict:
 		for variable in sync_dict[key]:
 			var node = node_array[key]
@@ -196,6 +197,7 @@ func unreliable_sync(sync_dict : Dictionary):
 				"global_position":
 					if node.get(variable).distance_to(sync_dict[key][variable]) > 50:
 						node.set(variable,sync_dict[key][variable])
+						
 				_:
 					if node.get(variable) != sync_dict[key][variable]:
 						node.set(variable,sync_dict[key][variable])

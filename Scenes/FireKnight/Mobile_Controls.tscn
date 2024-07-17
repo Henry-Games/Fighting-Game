@@ -5,101 +5,132 @@
 
 [node name="mobile_controls" type="Node"]
 
-[node name="AttackButton" type="TouchScreenButton" parent="."]
-position = Vector2(1626, 696)
-scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_xmwvl")
-texture_pressed = ExtResource("2_h1acr")
-action = "ATTACK"
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AttackButton"]
-offset_right = 507.0
-offset_bottom = 309.0
-theme_override_font_sizes/normal_font_size = 100
-text = "ATTACK
-"
+[node name="MOVE BUTTONS" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
 
-[node name="JumpButton" type="TouchScreenButton" parent="."]
-position = Vector2(1376, 835)
-scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_xmwvl")
-texture_pressed = ExtResource("2_h1acr")
-action = "JUMP"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="JumpButton"]
-offset_right = 507.0
-offset_bottom = 309.0
-theme_override_font_sizes/normal_font_size = 100
-text = "JUMP
-"
-
-[node name="Roll" type="TouchScreenButton" parent="."]
-position = Vector2(1494, 712)
-scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_xmwvl")
-texture_pressed = ExtResource("2_h1acr")
-action = "ROLL"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Roll"]
-offset_right = 507.0
-offset_bottom = 309.0
-theme_override_font_sizes/normal_font_size = 100
-text = "ROLL
-"
-
-[node name="Defend" type="TouchScreenButton" parent="."]
-position = Vector2(1635, 840)
-scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_xmwvl")
-texture_pressed = ExtResource("2_h1acr")
-action = "DEFEND"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Defend"]
-offset_right = 507.0
-offset_bottom = 309.0
-theme_override_font_sizes/normal_font_size = 100
-text = "DEFEND
-"
-
-[node name="SpecialAttacl" type="TouchScreenButton" parent="."]
-position = Vector2(1511, 837)
-scale = Vector2(0.212891, 0.26875)
-texture_normal = ExtResource("1_xmwvl")
-texture_pressed = ExtResource("2_h1acr")
-action = "SPECIAL"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SpecialAttacl"]
-offset_right = 507.0
-offset_bottom = 309.0
-theme_override_font_sizes/normal_font_size = 100
-text = "SPECIAL
-"
-
-[node name="LEFT" type="TouchScreenButton" parent="."]
-position = Vector2(128, 866)
+[node name="LEFT" type="TouchScreenButton" parent="Control/MOVE BUTTONS"]
+position = Vector2(59, -116)
 scale = Vector2(0.212891, 0.26875)
 texture_normal = ExtResource("1_xmwvl")
 texture_pressed = ExtResource("2_h1acr")
 action = "MOVE LEFT"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LEFT"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MOVE BUTTONS/LEFT"]
 offset_right = 507.0
 offset_bottom = 309.0
 theme_override_font_sizes/normal_font_size = 100
 text = "Left
 
 "
+metadata/_edit_use_anchors_ = true
 
-[node name="RIGHT" type="TouchScreenButton" parent="."]
-position = Vector2(282, 866)
+[node name="RIGHT" type="TouchScreenButton" parent="Control/MOVE BUTTONS"]
+position = Vector2(213, -116)
 scale = Vector2(0.212891, 0.26875)
 texture_normal = ExtResource("1_xmwvl")
 texture_pressed = ExtResource("2_h1acr")
 action = "MOVE RIGHT"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="RIGHT"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MOVE BUTTONS/RIGHT"]
 offset_right = 507.0
 offset_bottom = 309.0
 theme_override_font_sizes/normal_font_size = 100
 text = "Right
+"
+
+[node name="ACTION BUTTONS" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="AttackButton" type="TouchScreenButton" parent="Control/ACTION BUTTONS"]
+position = Vector2(-148, -232)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
+action = "ATTACK"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ACTION BUTTONS/AttackButton"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "ATTACK
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="JumpButton" type="TouchScreenButton" parent="Control/ACTION BUTTONS"]
+position = Vector2(-398, -93)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
+action = "JUMP"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ACTION BUTTONS/JumpButton"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "JUMP
+"
+
+[node name="Roll" type="TouchScreenButton" parent="Control/ACTION BUTTONS"]
+position = Vector2(-280, -216)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
+action = "ROLL"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ACTION BUTTONS/Roll"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "ROLL
+"
+
+[node name="Defend" type="TouchScreenButton" parent="Control/ACTION BUTTONS"]
+position = Vector2(-139, -88)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
+action = "DEFEND"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ACTION BUTTONS/Defend"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "DEFEND
+"
+
+[node name="SpecialAttacl" type="TouchScreenButton" parent="Control/ACTION BUTTONS"]
+position = Vector2(-263, -91)
+scale = Vector2(0.212891, 0.26875)
+texture_normal = ExtResource("1_xmwvl")
+texture_pressed = ExtResource("2_h1acr")
+action = "SPECIAL"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ACTION BUTTONS/SpecialAttacl"]
+offset_right = 507.0
+offset_bottom = 309.0
+theme_override_font_sizes/normal_font_size = 100
+text = "SPECIAL
 "

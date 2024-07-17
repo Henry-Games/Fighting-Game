@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://docy5v63sjj0a"]
+
+[ext_resource type="Texture2D" uid="uid://burcl47jg8q51" path="res://Assets/Theme/Button_Outline/Button_Outline_Hovered.png" id="1_g1spt"]
+
+[resource]
+texture = ExtResource("1_g1spt")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0

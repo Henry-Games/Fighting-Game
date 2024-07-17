@@ -6,6 +6,7 @@ var player
 func _ready():
 	#print("Enter Defend State")
 	player = get_parent()
+	player.forcedPositionSync()
 	player.animation.play("defend")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1rjrapwgx66k"]
+[gd_scene load_steps=22 format=3 uid="uid://d1rjrapwgx66k"]
 
 [ext_resource type="Script" path="res://Scripts/FireKnight/Fire_Knight.gd" id="1_xs1k3"]
 [ext_resource type="Texture2D" uid="uid://bybctm30cqnsr" path="res://Assets/fire_knight/fire_FREE_SpriteSheet_288x128.png" id="2_t7fjp"]
 [ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/Network_Var_Sync.tscn" id="3_lvhr4"]
+[ext_resource type="PackedScene" uid="uid://cgndai8wwdcil" path="res://Scenes/FireKnight/Health_Bar.tscn" id="4_kgyad"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbue"]
 size = Vector2(43.3333, 51.3333)
@@ -515,16 +516,19 @@ _data = {
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 10
 scale = Vector2(1.5, 1.5)
+collision_layer = 2
 script = ExtResource("1_xs1k3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -63)
+position = Vector2(0, -62.6667)
 texture = ExtResource("2_t7fjp")
 hframes = 28
 vframes = 14
 
 [node name="AttackHit" type="Area2D" parent="Sprite2D"]
+collision_layer = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/AttackHit"]
 position = Vector2(43.6667, 37.3333)
@@ -543,8 +547,61 @@ libraries = {
 [node name="NetworkVarSync" parent="." instance=ExtResource("3_lvhr4")]
 instance_file_path = "res://Scenes/FireKnight/Fire_Knight.tscn"
 unreliable_sync_vars = {
-NodePath(".."): ["global_position", "health"]
+NodePath(".."): ["health"]
 }
+is_local_authority = true
+
+[node name="Node" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Node"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar1" parent="Node/Control" instance=ExtResource("4_kgyad")]
+layout_mode = 1
+offset_left = 42.0
+offset_top = 37.0
+offset_right = 42.0
+offset_bottom = 37.0
+
+[node name="P1Name" type="Label" parent="Node/Control"]
+layout_mode = 1
+offset_left = 150.0
+offset_top = 147.0
+offset_right = 872.0
+offset_bottom = 246.0
+theme_override_font_sizes/font_size = 70
+text = "P1 Name"
+
+[node name="HealthBar2" parent="Node/Control" instance=ExtResource("4_kgyad")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -46.0
+offset_top = 52.0
+offset_right = -46.0
+offset_bottom = 52.0
+grow_horizontal = 0
+scale = Vector2(-1, 1)
+
+[node name="P2Name" type="Label" parent="Node/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -877.0
+offset_top = 177.0
+offset_right = -155.0
+offset_bottom = 276.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 70
+text = "P1 Name"
+horizontal_alignment = 2
 
 [connection signal="body_entered" from="Sprite2D/AttackHit" to="." method="_on_attack_hit_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

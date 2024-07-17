@@ -6,6 +6,7 @@ var puppet_master
 func _ready():
 	#print("Enter Idle State")
 	player = get_parent()
+	player.forcedPositionSync()
 	puppet_master = player.get_parent()
 	puppet_master.JumpSignal.connect(onJump)
 	puppet_master.AttackSignal.connect(onAttack)

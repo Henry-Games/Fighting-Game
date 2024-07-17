@@ -6,6 +6,7 @@ var player
 func _ready():
 	#print("Enter Air Attack State")
 	player = get_parent()
+	player.forcedPositionSync()
 	player.damage = 10
 	player.knockback = 2
 	player.animation.play("air_attack", -1, 1.25)

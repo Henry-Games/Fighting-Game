@@ -1,0 +1,193 @@
+[gd_scene load_steps=16 format=3 uid="uid://cglna433cd3s0"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
+[ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/Room_Code_Display.tscn" id="2_tikey"]
+[ext_resource type="Texture2D" uid="uid://c4pqynan608ny" path="res://Assets/lobby_background.png.png" id="2_x5yg7"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
+[ext_resource type="Texture2D" uid="uid://dew5l8awi5xbo" path="res://Assets/buttons/leave_button/leave_button_neutral.png" id="4_lgkif"]
+[ext_resource type="Texture2D" uid="uid://cyoqdn3c4cegn" path="res://Assets/buttons/start_button/start_button_neutral.png" id="4_x1nu6"]
+[ext_resource type="Texture2D" uid="uid://f5gkpv1d6w4y" path="res://Assets/buttons/start_button/start_button_pressed.png" id="5_6jj2c"]
+[ext_resource type="Texture2D" uid="uid://evq4b1kidv3b" path="res://Assets/buttons/leave_button/leave_button_pressed.png" id="5_nx7ek"]
+[ext_resource type="Texture2D" uid="uid://0xv06pv6kse5" path="res://Assets/buttons/leave_button/leave_button_hovered.png" id="6_mwdhw"]
+[ext_resource type="Texture2D" uid="uid://d1liyt46pa1e3" path="res://Assets/buttons/start_button/start_button_hover.png" id="6_vjdtp"]
+[ext_resource type="PackedScene" uid="uid://d1fh86p7r8kxm" path="res://Scenes/MultiplayerLobby/Lobby_Player.tscn" id="7_dxit6"]
+[ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/Network_Var_Sync.tscn" id="8_hdkqu"]
+[ext_resource type="Texture2D" uid="uid://d2btgrty8n1w2" path="res://Assets/fire_knight/NoSelected.png" id="9_c3mch"]
+[ext_resource type="Texture2D" uid="uid://b2xgeoy1mn3sj" path="res://Assets/fire_knight/FireKnightSelection.png" id="13_jepoh"]
+[ext_resource type="Script" path="res://Scenes/MultiplayerLobby/CharacterSelecter.gd" id="14_4b6a1"]
+
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("start_game_button", "local_broadcast", "player_1", "player_2")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_qmw6p")
+start_game_button = NodePath("StartButton")
+local_broadcast = NodePath("LocalBroadcast")
+player_1 = NodePath("Player 1")
+player_2 = NodePath("Player 2")
+
+[node name="Bakcground" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_x5yg7")
+
+[node name="RoomCodeDisplay" parent="." instance=ExtResource("2_tikey")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -422.0
+offset_top = -350.0
+offset_right = -39.0
+offset_bottom = -304.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]ROOM CODE : "
+
+[node name="LocalBroadcast" parent="." instance=ExtResource("3_lhou2")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -374.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LeaveButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -404.0
+offset_top = -193.0
+offset_right = -224.0
+offset_bottom = -129.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_lgkif")
+texture_pressed = ExtResource("5_nx7ek")
+texture_hover = ExtResource("6_mwdhw")
+texture_disabled = ExtResource("5_nx7ek")
+
+[node name="Player 1" parent="." instance=ExtResource("7_dxit6")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 61.0
+offset_top = 48.0
+offset_right = 211.0
+offset_bottom = 48.0
+grow_horizontal = 1
+grow_vertical = 1
+p1_or_p2 = 1
+
+[node name="SelectedCharacter" type="TextureRect" parent="Player 1"]
+layout_mode = 0
+offset_left = 510.0
+offset_right = 551.0
+offset_bottom = 59.0
+scale = Vector2(5, 5)
+texture = ExtResource("9_c3mch")
+
+[node name="Player 2" parent="." instance=ExtResource("7_dxit6")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -588.0
+offset_top = 48.0
+offset_right = -438.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 1
+p1_or_p2 = 2
+
+[node name="SelectedCharacter" type="TextureRect" parent="Player 2"]
+layout_mode = 0
+offset_left = -240.0
+offset_right = -199.0
+offset_bottom = 59.0
+scale = Vector2(5, 5)
+texture = ExtResource("9_c3mch")
+
+[node name="NetworkVarSync" parent="." instance=ExtResource("8_hdkqu")]
+reliable_sync_vars = {
+NodePath(".."): ["puppet_master_sync_id_1", "puppet_master_sync_id_2"]
+}
+
+[node name="StartButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -407.0
+offset_top = -306.0
+offset_right = -227.0
+offset_bottom = -242.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_x1nu6")
+texture_pressed = ExtResource("5_6jj2c")
+texture_hover = ExtResource("6_vjdtp")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_4b6a1")
+
+[node name="FireKnightSelect" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 654.0
+offset_top = 582.0
+offset_right = 695.0
+offset_bottom = 641.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("13_jepoh")
+
+[node name="SecondKnightSelect2" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 859.0
+offset_top = 582.0
+offset_right = 900.0
+offset_bottom = 641.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("13_jepoh")
+
+[node name="ThirdKnightSelect3" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 1064.0
+offset_top = 582.0
+offset_right = 1105.0
+offset_bottom = 641.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("13_jepoh")
+
+[connection signal="button_down" from="LeaveButton" to="." method="_on_leave_button_button_down"]
+[connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="Control/FireKnightSelect" to="Control" method="_on_fire_knight_select_button_down"]

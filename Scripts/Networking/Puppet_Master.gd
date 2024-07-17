@@ -1,7 +1,11 @@
 class_name Puppet_Master
 extends Node2D
 
+#Character Info Signals
 signal PlayerNameChangedSignal(new_name)
+signal PlayerNumberChangedSignal(new_number)
+signal CharacterSelectedChangedSignal(new_character_name)
+# Character Input Signals
 signal MoveAxisChangedSignal(move_dir : Vector2)
 signal LookAxisChangedSignal(lookDir : Vector2)
 signal MousePositionChangeSignal(mouse_pos : Vector2)
@@ -17,8 +21,9 @@ var controller := true
 var mobile = false
 
 # Player Data
+var player_number = 0
 var player_name := "" : set = player_name_changed
-
+var character_selected = "" : set = character_selected_changed
 #region Player Input Variables
 var MoveAxis := Vector2(0,0) : set = MoveAxisChanged
 var LookAxis := Vector2(0,0) : set = LookAxisChanged
@@ -162,7 +167,8 @@ func _input(event : InputEvent):
 						else:
 							MoveAxis.x -= 1
 					_:
-						Relayconnect.call_rpc_room(ButtonSignalCall,[event.action])
+						if event.pressed:
+							Relayconnect.call_rpc_room(ButtonSignalCall,[event.action])
 
 @rpc("any_peer","call_local","reliable")
 func ButtonSignalCall(signalName):
@@ -220,5 +226,7 @@ func player_name_changed(new_player_name):
 	player_name = new_player_name
 	PlayerNameChangedSignal.emit(new_player_name)
 
-
+func character_selected_changed(new_character_name):
+	character_selected = new_character_name
+	CharacterSelectedChangedSignal.emit(new_character_name)
 

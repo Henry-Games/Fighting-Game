@@ -7,6 +7,7 @@ extends Node2D
 
 
 func _ready():
+	host_button.grab_focus()
 	Relayconnect.connect_to_relay_server("13.210.71.64")
 	Relayconnect.JoinSuccessSignal.connect(_on_join_success)
 	Relayconnect.JoinFailSignal.connect(_on_join_fail)
@@ -18,9 +19,6 @@ func _ready():
 	if Relayconnect.connected:
 		_on_relay_server_connect()
 	
-	# Place the relay server IP
-	
-
 
 	
 func _on_host_success():
@@ -28,7 +26,7 @@ func _on_host_success():
 	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/MultiplayerLobby/Multiplayer_Lobby.tscn",true])
 
 func _on_host_fail():
-	message_label.text = "HOST FAILED"
+	message_label.text = "[center] Relay Server Status : CONNECTED \n HOST FAILED - Retry, if issue persists contact EMAIL"
 	print("HOST FAIL")
 
 func _on_join_success():
@@ -36,22 +34,22 @@ func _on_join_success():
 	print("JOIN SUCCESS")
 
 func _on_join_fail(error_message):
-	message_label.text = "JOIN FAILED : %s" %error_message
+	message_label.text = "[center] Relay Server Status : CONNECTED \n JOIN FAILED : %s" %error_message
 	print("JOIN FAIL")
 
 func _on_relay_server_connect():
 	if !Relayconnect.IS_LOCAL_HOST:
-		message_label.text = ""
+		message_label.text = "[center] Relay Server Status : CONNECTED"
 		join_button.disabled = false
 		host_button.disabled = false
 
 func _on_relay_server_disconnected():
-	message_label.text = ""
+	message_label.text = "[center] Relay Server Status : DISCONNECTED \n Could Not Reach Relay Server - check internet connection and then contact EMAIL"
 	join_button.disabled = false
 	host_button.disabled = false
 
 func _on_relay_server_fail():
-	message_label.text = "CONNECTION TO RELAY SERVER FAILED"
+	message_label.text = "[center] Relay Server Status : DISCONNECTED \n Could Not Reach Relay Server - check internet connection and then contact EMAIL "
 
 func _on_host_button_down():
 	Relayconnect.host()

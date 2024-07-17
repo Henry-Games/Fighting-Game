@@ -9,7 +9,8 @@ signal RelayServerConnectedSignal
 signal RelayServerFailedSignal
 signal RelayServerDisconnectedSignal
 
-const relay_server_id = 0
+const RELAY_SERVER_ID = 0
+const GAME_NAME = "Fighting_Game"
 
 var connected = false
 var network_ticking_started := false
@@ -43,7 +44,7 @@ func connect_to_relay_server(ip : String):
 	
 # When connected to relay server register player to the database and emit connection signal
 func _on_connected_to_server():
-	_resgister_player.rpc_id(relay_server_id)
+	_resgister_player.rpc_id(RELAY_SERVER_ID,GAME_NAME)
 	connected = true
 	RelayServerConnectedSignal.emit()
 	
@@ -57,7 +58,7 @@ func _on_connected_to_server():
 	
 #Register player command
 @rpc("any_peer","call_remote","reliable")
-func _resgister_player():
+func _resgister_player(game_name):
 	pass
 
 func _on_connected_fail():
@@ -81,12 +82,12 @@ func _on_server_disconnected():
 # Host Using remote relay server
 func host():
 	if multiplayer.multiplayer_peer.CONNECTION_CONNECTED:
-		host_rpc.rpc_id(relay_server_id)
+		host_rpc.rpc_id(RELAY_SERVER_ID)
 
 # Join room using remote relay server
 func join():
 	if multiplayer.multiplayer_peer.CONNECTION_CONNECTED:
-		join_rpc.rpc_id(relay_server_id,typed_room_code)
+		join_rpc.rpc_id(RELAY_SERVER_ID,typed_room_code)
 #Dummy for cmd being sent to server
 @rpc("any_peer","call_remote","reliable")
 func host_rpc():
