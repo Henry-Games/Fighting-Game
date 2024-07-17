@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgndai8wwdcil"]
+
+[ext_resource type="Script" path="res://Scripts/FireKnight/HealthBar.gd" id="1_c25pi"]
+[ext_resource type="Texture2D" uid="uid://fecw3bck6gdb" path="res://Assets/HealthBar/HealthBarBackground.png" id="2_f8uqa"]
+[ext_resource type="Texture2D" uid="uid://ch6xr63fashpq" path="res://Assets/HealthBar/HealthBarHeart.png.png" id="3_bngkp"]
+[ext_resource type="Texture2D" uid="uid://12bm43fv17ej" path="res://Assets/HealthBar/MediumDamage-Sheet.png" id="4_eykg7"]
+
+[sub_resource type="Animation" id="Animation_2pfed"]
+resource_name = "medium_damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w73io"]
+_data = {
+"medium_damage": SubResource("Animation_2pfed")
+}
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 32.0
+offset_top = 30.0
+offset_right = 32.0
+offset_bottom = 30.0
+script = ExtResource("1_c25pi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w73io")
+}
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+offset_left = 119.0
+offset_top = 50.0
+offset_right = 166.0
+offset_bottom = 53.0
+scale = Vector2(10, 10)
+value = 100.0
+texture_progress = ExtResource("2_f8uqa")
+
+[node name="Heart" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 18.0
+offset_bottom = 20.0
+scale = Vector2(10, 10)
+value = 100.0
+fill_mode = 3
+texture_progress = ExtResource("3_bngkp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(298, 60)
+scale = Vector2(10, 10)
+texture = ExtResource("4_eykg7")
+vframes = 6
+frame = 5

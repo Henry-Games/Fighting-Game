@@ -1,0 +1,181 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlgmqilr5i5k5"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu/Main_Menu.gd" id="1_r40j5"]
+[ext_resource type="Script" path="res://Scripts/MainMenu/Local_Join_Receiver.gd" id="2_01uhw"]
+[ext_resource type="Theme" uid="uid://b5lu2qaepac7c" path="res://Assets/Theme/main_theme.tres" id="2_h5xx4"]
+[ext_resource type="Texture2D" uid="uid://c4pqynan608ny" path="res://Assets/lobby_background.png.png" id="3_p41kd"]
+[ext_resource type="Texture2D" uid="uid://c38miep0tbsh2" path="res://Assets/Theme/RichTextLabel/NinePatchBackground.png" id="4_l8wm1"]
+
+[node name="Lobby" type="Node2D" node_paths=PackedStringArray("join_button", "host_button", "message_label")]
+script = ExtResource("1_r40j5")
+join_button = NodePath("CanvasLayer/Control/OnlineMultiplayer/JOIN")
+host_button = NodePath("CanvasLayer/Control/OnlineMultiplayer/HOST")
+message_label = NodePath("CanvasLayer/Control/RichTextLabel")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Bakcground" type="NinePatchRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_p41kd")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_h5xx4")
+
+[node name="LocalHost_Join" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = 37.0
+offset_right = -261.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Local Host" type="Button" parent="CanvasLayer/Control/LocalHost_Join"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -172.0
+offset_right = 67.0
+offset_bottom = -122.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Local Host
+"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/LocalHost_Join"]
+custom_minimum_size = Vector2(120, 320)
+layout_mode = 2
+offset_left = -49.5
+offset_top = -123.0
+offset_right = 70.5
+offset_bottom = 197.0
+texture = ExtResource("4_l8wm1")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Local Join" type="FlowContainer" parent="CanvasLayer/Control/LocalHost_Join"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -113.0
+offset_right = 60.5
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_01uhw")
+
+[node name="OnlineMultiplayer" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 263.0
+offset_top = 37.0
+offset_right = 263.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="HOST" type="Button" parent="CanvasLayer/Control/OnlineMultiplayer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -108.5
+offset_right = 72.0
+offset_bottom = -58.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../LocalHost_Join/Local Host")
+focus_neighbor_bottom = NodePath("../JOIN")
+disabled = true
+text = "HOST"
+
+[node name="JOIN" type="Button" parent="CanvasLayer/Control/OnlineMultiplayer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -58.0
+offset_right = 72.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../LocalHost_Join/Local Host")
+focus_neighbor_top = NodePath("../HOST")
+focus_neighbor_bottom = NodePath("../NormalJoinLineEdit")
+disabled = true
+text = "JOIN"
+
+[node name="NormalJoinLineEdit" type="LineEdit" parent="CanvasLayer/Control/OnlineMultiplayer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 72.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../JOIN")
+placeholder_text = "Room Code"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -634.0
+offset_top = 32.0
+offset_right = -34.0
+offset_bottom = 132.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+bbcode_enabled = true
+text = "CONNECTING"
+
+[connection signal="button_down" from="CanvasLayer/Control/LocalHost_Join/Local Host" to="." method="_on_local_host_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/OnlineMultiplayer/HOST" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="CanvasLayer/Control/OnlineMultiplayer/JOIN" to="." method="_on_join_button_down"]
+[connection signal="text_changed" from="CanvasLayer/Control/OnlineMultiplayer/NormalJoinLineEdit" to="." method="_on_line_edit_text_changed"]

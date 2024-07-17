@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://daxmyh1q8bwfs"]
+
+[ext_resource type="Texture2D" uid="uid://dyywj2fcoyg8i" path="res://Assets/Theme/Line_Edit/Line_Edit_Disabled.png" id="1_tmgb0"]
+
+[resource]
+texture = ExtResource("1_tmgb0")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0

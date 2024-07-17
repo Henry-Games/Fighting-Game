@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fighting_Game"
-run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
+run/main_scene="res://Scenes/MainMenu/Main_Menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 run/size/viewport_height=648
@@ -19,12 +19,15 @@ run/size/viewport_width=1152
 
 [autoload]
 
-Relayconnect="*res://Scripts/Networking/RELAYCONNECT.gd"
-GameManager="*res://Scripts/Networking/GAME_MANAGER.gd"
+Relayconnect="*res://Scripts/Networking/Autoloads/RELAY_CONNECT.gd"
+GameManager="*res://Scripts/Networking/Autoloads/GAME_MANAGER.gd"
 
 [display]
 
-window/stretch/aspect="ignore"
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 

@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://cglna433cd3s0"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
+[ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/Room_Code_Display.tscn" id="2_tikey"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
+[ext_resource type="Texture2D" uid="uid://cyoqdn3c4cegn" path="res://Assets/start_button/start_button_neutral.png" id="4_x1nu6"]
+[ext_resource type="Texture2D" uid="uid://f5gkpv1d6w4y" path="res://Assets/start_button/start_button_pressed.png" id="5_6jj2c"]
+[ext_resource type="Texture2D" uid="uid://d1liyt46pa1e3" path="res://Assets/start_button/start_button_hover.png" id="6_vjdtp"]
+[ext_resource type="PackedScene" uid="uid://d1fh86p7r8kxm" path="res://Scenes/MultiplayerLobby/Lobby_Player.tscn" id="7_dxit6"]
+
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("start_game_button", "local_broadcast")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_qmw6p")
+start_game_button = NodePath("TextureButton")
+local_broadcast = NodePath("LocalBroadcast")
+
+[node name="RoomCodeDisplay" parent="." instance=ExtResource("2_tikey")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -259.0
+offset_right = -17.0
+offset_bottom = -213.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]ROOM CODE : "
+
+[node name="Leave" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -353.0
+offset_top = -69.0
+offset_right = -52.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "LEAVE
+"
+
+[node name="LocalBroadcast" parent="." instance=ExtResource("3_lhou2")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -374.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -387.0
+offset_top = -208.0
+offset_right = -207.0
+offset_bottom = -144.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_x1nu6")
+texture_pressed = ExtResource("5_6jj2c")
+texture_hover = ExtResource("6_vjdtp")
+
+[node name="Control" parent="." instance=ExtResource("7_dxit6")]
+layout_mode = 1
+
+[node name="Control2" parent="." instance=ExtResource("7_dxit6")]
+layout_mode = 1
+
+[connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]
+[connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]

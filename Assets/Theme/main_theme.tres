@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b5lu2qaepac7c"]
+
+[ext_resource type="FontFile" uid="uid://qx287quq1iww" path="res://Assets/Theme/Minecraftia-Regular.ttf" id="1_v41mq"]
+[ext_resource type="StyleBox" uid="uid://hco7ftpvbqar" path="res://Assets/Theme/Button_Outline/button_pressed_style_box.tres" id="2_l3ciu"]
+[ext_resource type="StyleBox" uid="uid://dl0quymluc7bw" path="res://Assets/Theme/Button_Outline/button_normal_style_box.tres" id="3_kcahf"]
+[ext_resource type="StyleBox" uid="uid://docy5v63sjj0a" path="res://Assets/Theme/Button_Outline/button_hovered_style_box.tres" id="4_ag4ur"]
+[ext_resource type="StyleBox" uid="uid://hkousu6k2yqr" path="res://Assets/Theme/Line_Edit/Line_Edit_Normal_Style_Box.tres" id="5_bq7px"]
+[ext_resource type="StyleBox" uid="uid://daxmyh1q8bwfs" path="res://Assets/Theme/Line_Edit/Line_Edit_Disabled_Style_Box.tres" id="6_nikeg"]
+[ext_resource type="StyleBox" uid="uid://bymcnata4qrdq" path="res://Assets/Theme/RichTextLabel/Rich_Text_Label_style_box.tres" id="7_hm5aq"]
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.501961)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0.32549, 0, 0.784314, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/fonts/font = ExtResource("1_v41mq")
+Button/styles/disabled = ExtResource("2_l3ciu")
+Button/styles/focus = ExtResource("4_ag4ur")
+Button/styles/hover = ExtResource("4_ag4ur")
+Button/styles/normal = ExtResource("3_kcahf")
+Button/styles/pressed = ExtResource("2_l3ciu")
+LineEdit/colors/caret_color = Color(0, 0, 0, 1)
+LineEdit/colors/clear_button_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+LineEdit/colors/font_selected_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_uneditable_color = Color(0, 0, 0, 0.501961)
+LineEdit/styles/focus = ExtResource("5_bq7px")
+LineEdit/styles/normal = ExtResource("5_bq7px")
+LineEdit/styles/read_only = ExtResource("6_nikeg")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/fonts/normal_font = ExtResource("1_v41mq")
+RichTextLabel/styles/normal = ExtResource("7_hm5aq")

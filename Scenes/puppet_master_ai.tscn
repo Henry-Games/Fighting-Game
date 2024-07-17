@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://x7713gpj36ic"]
-
-[ext_resource type="Script" path="res://Scenes/puppet_master_ai.gd" id="1_hk7u1"]
-
-[node name="AI" type="Node"]
-script = ExtResource("1_hk7u1")

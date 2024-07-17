@@ -1,10 +1,10 @@
+class_name Network_Var_Sync
 extends Node2D
-## USE Destroy_Networked to destroy a node at runtime if there is code to be hooked into the destrcution of the ndoe
-## this is to avoid code being run when changing scenes
-signal DestroyingOnPurpose
+signal DestroyingOnPurposeSignal
 var parent
 # Instance file path for replication of this node on connecting clients
 @export var instance_file_path : String
+
 # Reliable sync vars, only update on variable change and will always go through
 # slower, but reliable
 @export var reliable_sync_vars = {} 
@@ -12,15 +12,15 @@ var parent
 @export var unreliable_sync_vars = {}
 # These variables are reliably synced but will only sync data from the Host
 @export var always_server_sync_vars = {}
+
 # Object SyncID, The name of the object is also the ObjectSyncID if spawned by GameManager
 @export var sync_id = "" : set = onSyncIdChange
 func onSyncIdChange(new_sync_id):
 	sync_id = new_sync_id
 	#If this is not going to be controlled by antoher player and you are not the host then get data from the host
-	if !Relayconnect.IS_HOST and !is_local_authority:
-		on_spawn_sync.rpc_id(Relayconnect.HOST_ID)
 	
-	
+
+var multiplayer_id
 # Decides whether to be synced by the local player or the host
 @export var is_local_authority = false
 # is this owned by the local computer
@@ -32,14 +32,12 @@ func onOwnerIdChange(new_id):
 	owner_id = new_id
 	add_to_group(str(owner_id))
 	# Check if new owner is local player
-	if owner_id == multiplayer.get_unique_id():
+	if owner_id == multiplayer_id:
 		is_local_player = true
 	else:
 		is_local_player = false
 	
-	#If this is local authority and not the local player then get data from owning player
-	if is_local_authority and !is_local_player:
-		on_spawn_sync.rpc_id(owner_id)
+	
 
 		
 
@@ -58,10 +56,8 @@ var prior_value_dictionary_unreliable : Dictionary
 var prior_value_dictionary_server : Dictionary # Currently Unused
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	parent = get_parent()
-	# Add owner id to be reliably synced, "." stands for parent
 	reliable_sync_vars["."] = ["owner_id"]
-	
+	parent = get_parent()
 	# Setup Node Array : add node to node array, if it already exists dont add node to node array,
 	# then in the respective points where the node paths would be put the index of the corresponding node 
 	# in the node array
@@ -108,7 +104,15 @@ func _ready():
 		for variable in always_server_vars_to_sync[key]:
 			prior_value_dictionary_server[key][variable] = node_array[key].get(variable)
 	
-		
+	#If not host or local authority then ask for sync data from host
+	if !Relayconnect.IS_HOST and !is_local_authority:
+
+		on_spawn_sync.rpc_id(Relayconnect.HOST_ID)
+	
+	#If this is local authority and not the local player then get data from owning player
+	if is_local_authority and !is_local_player and owner_id != 0:
+		on_spawn_sync.rpc_id(owner_id)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -133,6 +137,7 @@ func _process(delta):
 	
 	if !is_local_player and is_local_authority:
 		return
+		
 	# If local computer is owner of this node it is in charge of checking changed reliable variables
 	var new_dictionary_reliable := {}
 	var something_different_reliable := false
@@ -156,6 +161,7 @@ func _process(delta):
 	if something_different_reliable:
 		Relayconnect.call_rpc_room(reliable_sync,[new_dictionary_reliable],false)
 	
+	
 	Relayconnect.call_rpc_room(unreliable_sync,[prior_value_dictionary_unreliable],false)
 	
 
@@ -174,6 +180,7 @@ func on_spawn_sync():
 # RPC functions for sending and receiving the sync data
 @rpc("any_peer","call_remote","reliable")
 func reliable_sync(sync_dict : Dictionary):
+
 	for key in sync_dict:
 		for variable in sync_dict[key]:
 			var node = node_array[key]
@@ -190,6 +197,7 @@ func unreliable_sync(sync_dict : Dictionary):
 				"global_position":
 					if node.get(variable).distance_to(sync_dict[key][variable]) > 50:
 						node.set(variable,sync_dict[key][variable])
+						
 				_:
 					if node.get(variable) != sync_dict[key][variable]:
 						node.set(variable,sync_dict[key][variable])
@@ -200,6 +208,6 @@ func Destroy_Networked():
 	
 @rpc("any_peer","call_local","reliable")
 func Destroy_RPC():
-	DestroyingOnPurpose.emit()
+	DestroyingOnPurposeSignal.emit()
 	get_parent().queue_free()
 
