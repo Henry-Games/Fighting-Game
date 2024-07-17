@@ -11,7 +11,6 @@ func _ready():
 	player.knockback = 10
 	player.animation.play("sp_attack", -1, 1.25)
 	
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	player.velocity.x = move_toward(player.velocity.x, 0, 15)

@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddhf54feanujc"]
+
+[ext_resource type="Texture2D" uid="uid://bj55fa51y1iaj" path="res://Assets/Crorrsss.png" id="1_67510"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_nckdv"]
+[ext_resource type="Texture2D" uid="uid://driwuu6g75qd4" path="res://Assets/image_2024-03-04_204227406.png" id="1_p1a4s"]
+[ext_resource type="AudioStream" uid="uid://6y4j1hvdwtcy" path="res://Assets/Sounds/lobby.mp3" id="4_0bbdn"]
+[ext_resource type="AudioStream" uid="uid://dhvghuqxgbiml" path="res://Assets/Sounds/button_noise.mp3" id="5_5nx6j"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_nckdv")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -14.0
+offset_top = -13.0
+offset_right = 1906.0
+offset_bottom = 1067.0
+scale = Vector2(0.618352, 0.619543)
+texture = ExtResource("1_p1a4s")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 580.0
+offset_top = 100.0
+offset_right = 2628.0
+offset_bottom = 2148.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_67510")
+
+[node name="Play_Button" type="Button" parent="."]
+offset_left = 130.0
+offset_top = 100.0
+offset_right = 431.0
+offset_bottom = 214.0
+text = "Play"
+
+[node name="Options_Button" type="Button" parent="."]
+offset_left = 130.0
+offset_top = 250.0
+offset_right = 431.0
+offset_bottom = 364.0
+text = "Options"
+
+[node name="Exit_Button" type="Button" parent="."]
+offset_left = 130.0
+offset_top = 400.0
+offset_right = 431.0
+offset_bottom = 514.0
+text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0bbdn")
+volume_db = -25.0
+autoplay = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Button_sound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_5nx6j")
+volume_db = -15.0
+
+[connection signal="pressed" from="Play_Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Options_Button" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Exit_Button" to="." method="_on_button_3_pressed"]
