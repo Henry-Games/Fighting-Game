@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://cglna433cd3s0"]
+[gd_scene load_steps=24 format=3 uid="uid://cglna433cd3s0"]
 
 [ext_resource type="Theme" uid="uid://b5lu2qaepac7c" path="res://Assets/Theme/main_theme.tres" id="1_j0bkq"]
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/Multiplayer_Lobby.gd" id="1_qmw6p"]
 [ext_resource type="PackedScene" uid="uid://cndhnvf80jorl" path="res://Scenes/Networking/room_code_display.tscn" id="2_tikey"]
-[ext_resource type="Texture2D" path="res://Assets/lobby_background.png.png" id="2_x5yg7"]
-[ext_resource type="PackedScene" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
+[ext_resource type="Texture2D" uid="uid://c4pqynan608ny" path="res://Assets/lobby_background.png.png" id="2_x5yg7"]
+[ext_resource type="PackedScene" uid="uid://hep4dprvttd7" path="res://Scenes/MultiplayerLobby/Local_Server_Broadcast.tscn" id="3_lhou2"]
 [ext_resource type="Texture2D" uid="uid://driwuu6g75qd4" path="res://Assets/image_2024-03-04_204227406.png" id="3_m3rc6"]
 [ext_resource type="Texture2D" uid="uid://dew5l8awi5xbo" path="res://Assets/buttons/leave_button/leave_button_neutral.png" id="4_lgkif"]
 [ext_resource type="Texture2D" uid="uid://cyoqdn3c4cegn" path="res://Assets/buttons/start_button/start_button_neutral.png" id="4_x1nu6"]
@@ -13,11 +13,91 @@
 [ext_resource type="Texture2D" uid="uid://0xv06pv6kse5" path="res://Assets/buttons/leave_button/leave_button_hovered.png" id="6_mwdhw"]
 [ext_resource type="Texture2D" uid="uid://d1liyt46pa1e3" path="res://Assets/buttons/start_button/start_button_hover.png" id="6_vjdtp"]
 [ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="8_hdkqu"]
-[ext_resource type="Texture2D" path="res://Assets/fire_knight/NoSelected.png" id="9_c3mch"]
+[ext_resource type="Texture2D" uid="uid://d2btgrty8n1w2" path="res://Assets/fire_knight/NoSelected.png" id="9_c3mch"]
 [ext_resource type="Script" path="res://Scripts/MultiplayerLobby/lobby_player.gd" id="10_5pjfl"]
 [ext_resource type="Texture2D" uid="uid://d078n5txibdy6" path="res://Assets/buttons/Player_Selected_outline.png" id="10_freon"]
-[ext_resource type="Texture2D" path="res://Assets/fire_knight/FireKnightSelection.png" id="13_jepoh"]
+[ext_resource type="Texture2D" uid="uid://b2xgeoy1mn3sj" path="res://Assets/fire_knight/FireKnightSelection.png" id="13_jepoh"]
 [ext_resource type="Script" path="res://Scenes/MultiplayerLobby/CharacterSelecter.gd" id="14_4b6a1"]
+
+[sub_resource type="Animation" id="Animation_sw04y"]
+resource_name = "EnterFromRight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2000, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m46b7"]
+resource_name = "ExitToRight"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2000, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sgqn7"]
+resource_name = "FadeFromBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeToBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_88coq"]
+resource_name = "FadeToBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeToBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bidfv"]
+_data = {
+"EnterFromRight": SubResource("Animation_sw04y"),
+"ExitToRight": SubResource("Animation_m46b7"),
+"FadeFromBlack": SubResource("Animation_sgqn7"),
+"FadeToBlack": SubResource("Animation_88coq")
+}
 
 [node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("start_game_button", "local_broadcast", "player_1", "player_2")]
 layout_mode = 3
@@ -29,10 +109,31 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_j0bkq")
 script = ExtResource("1_qmw6p")
-start_game_button = NodePath("StartButton")
-local_broadcast = NodePath("LocalBroadcast")
-player_1 = NodePath("Player1")
-player_2 = NodePath("Player2")
+start_game_button = NodePath("Control/StartButton")
+local_broadcast = NodePath("Control/LocalBroadcast")
+player_1 = NodePath("Control/Player1")
+player_2 = NodePath("Control/Player2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bidfv")
+}
+
+[node name="ToGameRoomTimer" type="Timer" parent="."]
+
+[node name="ToMultiplayerMenuTimer" type="Timer" parent="."]
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_m3rc6")
+expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 1
@@ -57,7 +158,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_x5yg7")
 
-[node name="RoomCodeDisplay" parent="." instance=ExtResource("2_tikey")]
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 2000.0
+offset_right = 2040.0
+offset_bottom = 40.0
+
+[node name="RoomCodeDisplay" parent="Control" instance=ExtResource("2_tikey")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
 anchors_preset = 3
@@ -65,10 +172,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -415.0
-offset_top = -339.0
-offset_right = -15.0
-offset_bottom = -269.0
+offset_left = 1465.0
+offset_top = 701.0
+offset_right = 1865.0
+offset_bottom = 771.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -76,31 +183,31 @@ theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "[center]ROOM CODE : "
 
-[node name="LocalBroadcast" parent="." instance=ExtResource("3_lhou2")]
+[node name="LocalBroadcast" parent="Control" instance=ExtResource("3_lhou2")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -374.0
-offset_top = 5.0
-offset_right = -7.0
-offset_bottom = 30.0
+offset_left = 1506.0
+offset_top = 1045.0
+offset_right = 1873.0
+offset_bottom = 1070.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="LeaveButton" type="TextureButton" parent="."]
+[node name="LeaveButton" type="TextureButton" parent="Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -391.0
-offset_top = -153.0
-offset_right = -211.0
-offset_bottom = -89.0
+offset_left = 1489.0
+offset_top = 887.0
+offset_right = 1669.0
+offset_bottom = 951.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(2, 2)
@@ -110,7 +217,7 @@ texture_pressed = ExtResource("5_nx7ek")
 texture_hover = ExtResource("6_mwdhw")
 texture_disabled = ExtResource("5_nx7ek")
 
-[node name="Player1" type="Control" parent="." node_paths=PackedStringArray("name_line_edit", "alphabet_grid", "disconnect_button", "type_here_label", "outline", "selected_button")]
+[node name="Player1" type="Control" parent="Control" node_paths=PackedStringArray("name_line_edit", "alphabet_grid", "disconnect_button", "type_here_label", "outline", "selected_button")]
 layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
@@ -125,7 +232,7 @@ player_colour = Color(0.141176, 0.372549, 0.972549, 1)
 outline = NodePath("Keyboard/A/Outline")
 selected_button = NodePath("Keyboard/A")
 
-[node name="SelectedCharacter" type="TextureRect" parent="Player1"]
+[node name="SelectedCharacter" type="TextureRect" parent="Control/Player1"]
 layout_mode = 0
 offset_left = 510.0
 offset_right = 551.0
@@ -133,13 +240,15 @@ offset_bottom = 59.0
 scale = Vector2(5, 5)
 texture = ExtResource("9_c3mch")
 
-[node name="LineEdit" type="LineEdit" parent="Player1"]
+[node name="LineEdit" type="LineEdit" parent="Control/Player1"]
 layout_mode = 0
 offset_right = 250.0
 offset_bottom = 31.0
 scale = Vector2(2, 2)
+editable = false
 
-[node name="Keyboard" type="FlowContainer" parent="Player1"]
+[node name="Keyboard" type="FlowContainer" parent="Control/Player1"]
+visible = false
 layout_mode = 0
 offset_left = 4.0
 offset_top = 112.0
@@ -147,13 +256,13 @@ offset_right = 562.0
 offset_bottom = 892.0
 scale = Vector2(0.9, 0.9)
 
-[node name="A" type="Button" parent="Player1/Keyboard"]
+[node name="A" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "A"
 
-[node name="Outline" type="NinePatchRect" parent="Player1/Keyboard/A"]
+[node name="Outline" type="NinePatchRect" parent="Control/Player1/Keyboard/A"]
 layout_mode = 2
 offset_right = 30.0
 offset_bottom = 31.0
@@ -163,139 +272,139 @@ patch_margin_top = 14
 patch_margin_right = 14
 patch_margin_bottom = 14
 
-[node name="B" type="Button" parent="Player1/Keyboard"]
+[node name="B" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "B"
 
-[node name="C" type="Button" parent="Player1/Keyboard"]
+[node name="C" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "C"
 
-[node name="D" type="Button" parent="Player1/Keyboard"]
+[node name="D" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "D"
 
-[node name="E" type="Button" parent="Player1/Keyboard"]
+[node name="E" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "E"
 
-[node name="F" type="Button" parent="Player1/Keyboard"]
+[node name="F" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "F"
 
-[node name="G" type="Button" parent="Player1/Keyboard"]
+[node name="G" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "G"
 
-[node name="H" type="Button" parent="Player1/Keyboard"]
+[node name="H" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "H"
 
-[node name="I" type="Button" parent="Player1/Keyboard"]
+[node name="I" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "I"
 
-[node name="J" type="Button" parent="Player1/Keyboard"]
+[node name="J" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "J"
 
-[node name="K" type="Button" parent="Player1/Keyboard"]
+[node name="K" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "K"
 
-[node name="L" type="Button" parent="Player1/Keyboard"]
+[node name="L" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "L"
 
-[node name="M" type="Button" parent="Player1/Keyboard"]
+[node name="M" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "M"
 
-[node name="N" type="Button" parent="Player1/Keyboard"]
+[node name="N" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "N"
 
-[node name="O" type="Button" parent="Player1/Keyboard"]
+[node name="O" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "O"
 
-[node name="P" type="Button" parent="Player1/Keyboard"]
+[node name="P" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "P"
 
-[node name="Q" type="Button" parent="Player1/Keyboard"]
+[node name="Q" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Q"
 
-[node name="R" type="Button" parent="Player1/Keyboard"]
+[node name="R" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "R"
 
-[node name="S" type="Button" parent="Player1/Keyboard"]
+[node name="S" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "S"
 
-[node name="T" type="Button" parent="Player1/Keyboard"]
+[node name="T" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "T"
 
-[node name="U" type="Button" parent="Player1/Keyboard"]
+[node name="U" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "U"
 
-[node name="V" type="Button" parent="Player1/Keyboard"]
+[node name="V" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "V"
 
-[node name="W" type="Button" parent="Player1/Keyboard"]
+[node name="W" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "W"
 
-[node name="X" type="Button" parent="Player1/Keyboard"]
+[node name="X" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../Character_Select/fire_knight")
@@ -303,50 +412,51 @@ focus_next = NodePath("../../../Character_Select/fire_knight")
 theme_override_font_sizes/font_size = 50
 text = "X"
 
-[node name="Y" type="Button" parent="Player1/Keyboard"]
+[node name="Y" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Y"
 
-[node name="Z" type="Button" parent="Player1/Keyboard"]
+[node name="Z" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Z"
 
-[node name="BACK" type="Button" parent="Player1/Keyboard"]
+[node name="BACK" type="Button" parent="Control/Player1/Keyboard"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../Character_Select/fire_knight")
 theme_override_font_sizes/font_size = 50
 text = "BACK"
 
-[node name="Disconnect_Button" type="Button" parent="Player1/Keyboard"]
+[node name="Disconnect_Button" type="Button" parent="Control/Player1/Keyboard"]
 layout_mode = 2
 focus_neighbor_right = NodePath("../../../Character_Select/fire_knight")
 theme_override_font_sizes/font_size = 50
 text = "DISCONNECT"
 
-[node name="NetworkVarSync" parent="Player1" instance=ExtResource("8_hdkqu")]
+[node name="NetworkVarSync" parent="Control/Player1" instance=ExtResource("8_hdkqu")]
 instance_file_path = "res://Scenes/MultiplayerLobby/Lobby_Player.tscn"
 reliable_sync_vars = {
 NodePath("../LineEdit"): ["text"],
-NodePath(".."): ["global_position", "lobby_grid_pos", "selected_character"]
+NodePath(".."): ["lobby_grid_pos", "selected_character"]
 }
 is_local_authority = true
 
-[node name="TypeHere" type="RichTextLabel" parent="Player1"]
+[node name="TypeHere" type="RichTextLabel" parent="Control/Player1"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 63.0
 offset_right = 69.0
 offset_bottom = 103.0
+text = "NO PLAYER"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="Player2" type="Control" parent="." node_paths=PackedStringArray("name_line_edit", "alphabet_grid", "disconnect_button", "type_here_label", "outline", "selected_button")]
+[node name="Player2" type="Control" parent="Control" node_paths=PackedStringArray("name_line_edit", "alphabet_grid", "disconnect_button", "type_here_label", "outline", "selected_button")]
 layout_mode = 1
 anchors_preset = 0
 offset_right = 40.0
@@ -361,7 +471,7 @@ player_colour = Color(0.988235, 0.117647, 0, 1)
 outline = NodePath("Keyboard/A/Outline")
 selected_button = NodePath("Keyboard/A")
 
-[node name="SelectedCharacter" type="TextureRect" parent="Player2"]
+[node name="SelectedCharacter" type="TextureRect" parent="Control/Player2"]
 layout_mode = 0
 offset_left = 1176.0
 offset_top = 3.0
@@ -370,15 +480,17 @@ offset_bottom = 62.0
 scale = Vector2(5, 5)
 texture = ExtResource("9_c3mch")
 
-[node name="LineEdit" type="LineEdit" parent="Player2"]
+[node name="LineEdit" type="LineEdit" parent="Control/Player2"]
 layout_mode = 0
 offset_left = 1416.0
 offset_top = 3.0
 offset_right = 1666.0
 offset_bottom = 34.0
 scale = Vector2(2, 2)
+editable = false
 
-[node name="Keyboard" type="FlowContainer" parent="Player2"]
+[node name="Keyboard" type="FlowContainer" parent="Control/Player2"]
+visible = false
 layout_mode = 0
 offset_left = 1420.0
 offset_top = 112.0
@@ -386,13 +498,13 @@ offset_right = 1976.0
 offset_bottom = 892.0
 scale = Vector2(0.9, 0.9)
 
-[node name="A" type="Button" parent="Player2/Keyboard"]
+[node name="A" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "A"
 
-[node name="Outline" type="NinePatchRect" parent="Player2/Keyboard/A"]
+[node name="Outline" type="NinePatchRect" parent="Control/Player2/Keyboard/A"]
 layout_mode = 2
 offset_right = 30.0
 offset_bottom = 31.0
@@ -402,203 +514,205 @@ patch_margin_top = 14
 patch_margin_right = 14
 patch_margin_bottom = 14
 
-[node name="B" type="Button" parent="Player2/Keyboard"]
+[node name="B" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "B"
 
-[node name="C" type="Button" parent="Player2/Keyboard"]
+[node name="C" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "C"
 
-[node name="D" type="Button" parent="Player2/Keyboard"]
+[node name="D" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "D"
 
-[node name="E" type="Button" parent="Player2/Keyboard"]
+[node name="E" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "E"
 
-[node name="F" type="Button" parent="Player2/Keyboard"]
+[node name="F" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "F"
 
-[node name="G" type="Button" parent="Player2/Keyboard"]
+[node name="G" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "G"
 
-[node name="H" type="Button" parent="Player2/Keyboard"]
+[node name="H" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "H"
 
-[node name="I" type="Button" parent="Player2/Keyboard"]
+[node name="I" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "I"
 
-[node name="J" type="Button" parent="Player2/Keyboard"]
+[node name="J" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "J"
 
-[node name="K" type="Button" parent="Player2/Keyboard"]
+[node name="K" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "K"
 
-[node name="L" type="Button" parent="Player2/Keyboard"]
+[node name="L" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "L"
 
-[node name="M" type="Button" parent="Player2/Keyboard"]
+[node name="M" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "M"
 
-[node name="N" type="Button" parent="Player2/Keyboard"]
+[node name="N" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "N"
 
-[node name="O" type="Button" parent="Player2/Keyboard"]
+[node name="O" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "O"
 
-[node name="P" type="Button" parent="Player2/Keyboard"]
+[node name="P" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "P"
 
-[node name="Q" type="Button" parent="Player2/Keyboard"]
+[node name="Q" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Q"
 
-[node name="R" type="Button" parent="Player2/Keyboard"]
+[node name="R" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "R"
 
-[node name="S" type="Button" parent="Player2/Keyboard"]
+[node name="S" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "S"
 
-[node name="T" type="Button" parent="Player2/Keyboard"]
+[node name="T" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "T"
 
-[node name="U" type="Button" parent="Player2/Keyboard"]
+[node name="U" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "U"
 
-[node name="V" type="Button" parent="Player2/Keyboard"]
+[node name="V" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "V"
 
-[node name="W" type="Button" parent="Player2/Keyboard"]
+[node name="W" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "W"
 
-[node name="X" type="Button" parent="Player2/Keyboard"]
+[node name="X" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "X"
 
-[node name="Y" type="Button" parent="Player2/Keyboard"]
+[node name="Y" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Y"
 
-[node name="Z" type="Button" parent="Player2/Keyboard"]
+[node name="Z" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Z"
 
-[node name="BACK" type="Button" parent="Player2/Keyboard"]
+[node name="BACK" type="Button" parent="Control/Player2/Keyboard"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "BACK"
 
-[node name="Disconnect_Button" type="Button" parent="Player2/Keyboard"]
+[node name="Disconnect_Button" type="Button" parent="Control/Player2/Keyboard"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../StartButton")
 theme_override_font_sizes/font_size = 50
 text = "DISCONNECT"
 
-[node name="NetworkVarSync" parent="Player2" instance=ExtResource("8_hdkqu")]
+[node name="NetworkVarSync" parent="Control/Player2" instance=ExtResource("8_hdkqu")]
 position = Vector2(1416, 3)
 instance_file_path = "res://Scenes/MultiplayerLobby/Lobby_Player.tscn"
 reliable_sync_vars = {
 NodePath("../LineEdit"): ["text"],
-NodePath(".."): ["global_position", "lobby_grid_pos", "selected_character"]
+NodePath(".."): ["lobby_grid_pos", "selected_character"]
 }
 is_local_authority = true
 
-[node name="TypeHere" type="RichTextLabel" parent="Player2"]
+[node name="TypeHere" type="RichTextLabel" parent="Control/Player2"]
 layout_mode = 0
 offset_left = 1417.0
 offset_top = 66.0
 offset_right = 1514.0
 offset_bottom = 106.0
+text = "NO PLAYER"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="NetworkVarSync" parent="." instance=ExtResource("8_hdkqu")]
+[node name="NetworkVarSync" parent="Control" instance=ExtResource("8_hdkqu")]
 reliable_sync_vars = {
-NodePath(".."): ["puppet_master_sync_id_1", "puppet_master_sync_id_2"]
+NodePath("../.."): ["puppet_master_sync_id_1", "puppet_master_sync_id_2"],
+NodePath("."): ["owner_id"]
 }
 
-[node name="StartButton" type="TextureButton" parent="."]
+[node name="StartButton" type="TextureButton" parent="Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -394.0
-offset_top = -266.0
-offset_right = -214.0
-offset_bottom = -202.0
+offset_left = 1486.0
+offset_top = 774.0
+offset_right = 1666.0
+offset_bottom = 838.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(2, 2)
@@ -608,13 +722,13 @@ texture_normal = ExtResource("4_x1nu6")
 texture_pressed = ExtResource("5_6jj2c")
 texture_hover = ExtResource("6_vjdtp")
 
-[node name="Character_Select" type="Control" parent="."]
+[node name="Character_Select" type="Control" parent="Control"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("14_4b6a1")
 
-[node name="fire_knight" type="TextureButton" parent="Character_Select"]
+[node name="fire_knight" type="TextureButton" parent="Control/Character_Select"]
 layout_mode = 0
 offset_left = 836.0
 offset_top = 580.0
@@ -623,10 +737,22 @@ offset_bottom = 639.0
 scale = Vector2(5, 5)
 texture_normal = ExtResource("13_jepoh")
 
-[connection signal="button_down" from="LeaveButton" to="." method="_on_leave_button_button_down"]
-[connection signal="text_changed" from="Player1/LineEdit" to="Player1" method="_on_line_edit_text_changed"]
-[connection signal="button_down" from="Player1/Keyboard/Disconnect_Button" to="Player1" method="_on_disconnect_button_button_down"]
-[connection signal="text_changed" from="Player2/LineEdit" to="Player2" method="_on_line_edit_text_changed"]
-[connection signal="button_down" from="Player2/Keyboard/Disconnect_Button" to="Player2" method="_on_disconnect_button_button_down"]
-[connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]
-[connection signal="button_down" from="Character_Select/fire_knight" to="Character_Select" method="_on_fire_knight_select_button_down"]
+[node name="FadeToBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="timeout" from="ToGameRoomTimer" to="." method="_on_to_game_room_timer_timeout"]
+[connection signal="timeout" from="ToMultiplayerMenuTimer" to="." method="_on_to_multiplayer_menu_timer_timeout"]
+[connection signal="button_down" from="Control/LeaveButton" to="." method="_on_leave_button_button_down"]
+[connection signal="text_changed" from="Control/Player1/LineEdit" to="Control/Player1" method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Control/Player1/Keyboard/Disconnect_Button" to="Control/Player1" method="_on_disconnect_button_button_down"]
+[connection signal="text_changed" from="Control/Player2/LineEdit" to="Control/Player2" method="_on_line_edit_text_changed"]
+[connection signal="button_down" from="Control/Player2/Keyboard/Disconnect_Button" to="Control/Player2" method="_on_disconnect_button_button_down"]
+[connection signal="button_down" from="Control/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="Control/Character_Select/fire_knight" to="Control/Character_Select" method="_on_fire_knight_select_button_down"]

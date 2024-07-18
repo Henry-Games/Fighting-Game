@@ -8,7 +8,7 @@ signal HostFailSignal(error_message)
 signal RelayServerConnectedSignal
 signal RelayServerFailedSignal
 signal RelayServerDisconnectedSignal
-
+signal RoomClosedSignal
 const RELAY_SERVER_ID = 0
 const GAME_NAME = "Fighting_Game"
 
@@ -121,8 +121,7 @@ func join_success_rpc(room_info : Dictionary,player_joined_id):
 		IS_HOST = false
 		JoinSuccessSignal.emit()
 	#The host sends current game data for synchronization
-	if IS_HOST:
-		GameManager.sync_game_data(player_joined_id)
+	
 	pass
 
 # Join Failed received from server only by player that is trying to join
@@ -172,7 +171,8 @@ func room_closed():
 	IS_HOST = false
 	IS_LOCAL_HOST = false
 	HOST_ID = 0
-	get_tree().change_scene_to_file("res://Scenes/MainMenu/Main_Menu.tscn")
+	RoomClosedSignal.emit()
+	
 
 
 # Receive Room Data from relay server (as in room code and current players and their ids)

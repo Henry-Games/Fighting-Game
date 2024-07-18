@@ -168,7 +168,6 @@ func _process(delta):
 # Initial sync when player joins
 @rpc("any_peer","call_remote","reliable")
 func on_spawn_sync():
-	
 	var sender_id = multiplayer.get_remote_sender_id()
 	if sender_id == 0:
 		sender_id = multiplayer.get_unique_id()
@@ -180,7 +179,7 @@ func on_spawn_sync():
 # RPC functions for sending and receiving the sync data
 @rpc("any_peer","call_remote","reliable")
 func reliable_sync(sync_dict : Dictionary):
-
+	print("SYNCING")
 	for key in sync_dict:
 		for variable in sync_dict[key]:
 			var node = node_array[key]

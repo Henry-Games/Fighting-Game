@@ -7,7 +7,8 @@ var host_started = false
 #Objects to sync dictionary, mainly to make sure network ids dont double up TODO replace with groups or list
 var objects_to_sync = {}
 # Stores current scene for replication on player join
-var current_scene
+var current_scene = "res://Scenes/main_menu.tscn"
+var prev_scene = ""
 # Store all current controller puppet masters : TODO replace with groups instead
 var controller_puppet_masters = {}
 
@@ -129,6 +130,8 @@ func spawn_object_rpc(object_path : String,pos : Vector2,rot : float,object_id :
 # -	Potentially keep or destroy puppetmasters if puppetmater info is needed in the next scene
 @rpc("any_peer","call_local","reliable")
 func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
+	if current_scene == scene_path:
+		return
 	if!destroy_puppet_masters:
 		# Destroy children of puppet master
 		for puppet_master in get_tree().get_nodes_in_group("puppet_masters"):
@@ -145,12 +148,21 @@ func change_scene_rpc(scene_path : String, destroy_puppet_masters : bool):
 			child.queue_free()
 	
 	# Change Scene
-	get_tree().change_scene_to_file(scene_path)
 	#Store scene node path for replication
+	prev_scene = current_scene
 	current_scene = scene_path
+	print(prev_scene)
+	get_tree().change_scene_to_file(scene_path)
+	
+	
 
 
 #region Sync player game data on join
+@rpc("any_peer","call_remote","reliable")
+func want_sync_game_data():
+	var sender_id = multiplayer.get_remote_sender_id()
+	sync_game_data(sender_id)
+	
 # Get tree structure for all children of Game Manager for replication on newly joined client
 func sync_game_data(target_player):
 	var dict_to_send = Recursive_child(self)
@@ -160,7 +172,7 @@ func sync_game_data(target_player):
 # Build children of GameManager based on received data from host
 @rpc("any_peer","call_remote","reliable")
 func sync_game_data_rpc(game_data : Dictionary,scene_path : String):
-	change_scene_rpc(scene_path,false)
+	#change_scene_rpc(scene_path,false)
 	recursive_build_scene(game_data,self)
 	pass
 

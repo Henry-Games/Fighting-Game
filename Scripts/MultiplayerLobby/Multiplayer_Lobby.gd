@@ -7,20 +7,37 @@ extends Control
 var puppet_master_sync_id_1 : set = p1_changed
 var puppet_master_sync_id_2 : set = p2_changed
 
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MUSIC_MANAGER.change_music("res://Assets/Sounds/lobby.mp3");
+	Relayconnect.RoomClosedSignal.connect(onRoomClosed)
+	
+	
+	if GameManager.prev_scene == "res://Scenes/MainMenu/Main_Menu.tscn":
+		$AnimationPlayer.play("EnterFromRight")
+	else:
+		$AnimationPlayer.play("FadeFromBlack")
 	if !Relayconnect.IS_LOCAL_HOST:
 		local_broadcast.queue_free()
 	
 	if Relayconnect.IS_HOST:
-		Relayconnect.game_started_rpc.rpc_id(0,false)	
+		Relayconnect.game_started_rpc.rpc_id(0,false)
+		
 		for puppet_master in get_tree().get_nodes_in_group("in_game"):
 			puppet_master.remove_from_group("in_game")
-			_spawn_lobby_player(puppet_master)
+		
+		var p1 = get_tree().get_first_node_in_group("p1");
+		var p2 = get_tree().get_first_node_in_group("p2")
+		if is_instance_valid(p1):
+			_spawn_lobby_player(p1)
+		if is_instance_valid(p2):
+			_spawn_lobby_player(p2)
 	
 	GameManager.SpawnPuppetSignal.connect(_spawn_lobby_player)
 	GameManager.spawn_puppet_masters()
+	
+	
 	
 func _process(delta):
 	release_focus()
@@ -37,7 +54,6 @@ func _process(delta):
 
 		 
 func _spawn_lobby_player(puppet_master : Puppet_Master):
-	
 	puppet_master_in_game.rpc_id(Relayconnect.HOST_ID,puppet_master.name)
 	
 
@@ -74,16 +90,19 @@ func puppet_master_in_game(puppet_master_sync_id):
 	puppet_master.add_to_group("in_game")
 	if puppet_master_sync_id_1 == null:
 		puppet_master_sync_id_1 = puppet_master.name
+		puppet_master.add_to_group("p1");
 		return
 		
 	if puppet_master_sync_id_2== null:
 		puppet_master_sync_id_2 = puppet_master.name
+		puppet_master.add_to_group("p2")
 
 		
 func p1_changed(new_p1_sync_id):
 	puppet_master_sync_id_1 = new_p1_sync_id
 	if puppet_master_sync_id_1 == null:
 		player_1.puppet_master = null
+		
 		return
 	var puppet_master : Puppet_Master
 	for node in get_tree().get_nodes_in_group("puppet_masters"):
@@ -116,5 +135,23 @@ func _on_leave_button_button_down():
 
 func _on_start_button_button_down():
 	Relayconnect.game_started_rpc.rpc_id(0,true)
-	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/Test_Room.tscn",false])
+	Relayconnect.call_rpc_room(on_start_rpc,[])
 	pass # Replace with function body.
+	
+@rpc("any_peer","call_local","reliable")
+func on_start_rpc():
+	$AnimationPlayer.play("FadeToBlack")
+	$ToGameRoomTimer.start()
+	
+func _on_to_game_room_timer_timeout():
+	GameManager.change_scene_rpc("res://Scenes/Test_Room.tscn",false);
+	pass # Replace with function body.
+
+func onRoomClosed():
+	$AnimationPlayer.play("ExitToRight")
+	$ToMultiplayerMenuTimer.start()
+
+
+func _on_to_multiplayer_menu_timer_timeout():
+	GameManager.change_scene_rpc("res://Scenes/MainMenu/Main_Menu.tscn",true)
+	

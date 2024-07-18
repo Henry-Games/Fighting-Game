@@ -7,6 +7,13 @@ extends Node2D
 
 
 func _ready():
+	if GameManager.prev_scene == "res://Scenes/main_menu.tscn":
+		$AnimationPlayer.play("EnterFromRight")
+	elif GameManager.prev_scene == "res://Scenes/MultiplayerLobby/Multiplayer_Lobby.tscn":
+		$AnimationPlayer.play("EnterFromLeft")
+	else:
+		$AnimationPlayer.play("EnterFadeFromBlack")
+		
 	MUSIC_MANAGER.change_music("res://Assets/Sounds/lobby.mp3");
 	host_button.grab_focus()
 	Relayconnect.connect_to_relay_server("13.210.71.64")
@@ -24,15 +31,27 @@ func _ready():
 	
 func _on_host_success():
 	GameManager.host_started = true
-	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/MultiplayerLobby/Multiplayer_Lobby.tscn",true])
+	$AnimationPlayer.play("ExitToLeft")
+	$ExitTimerMultiplayerLobby.start()
+	
+	
+func _on_join_success():
+	GameManager.host_started = false
+	$AnimationPlayer.play("ExitToLeft")
+	$ExitTimerMultiplayerLobby.start()
+
+func _on_exit_timer_multiplayer_lobby_timeout():
+	if !Relayconnect.IS_HOST:
+		GameManager.want_sync_game_data.rpc_id(0)
+	Relayconnect.call_rpc_room(GameManager.change_scene_rpc,["res://Scenes/MultiplayerLobby/Multiplayer_Lobby.tscn",false])
+	
 
 func _on_host_fail():
 	message_label.text = "[center] Relay Server Status : CONNECTED \n HOST FAILED - Retry, if issue persists contact EMAIL"
 	print("HOST FAIL")
 
-func _on_join_success():
-	GameManager.host_started = true
-	print("JOIN SUCCESS")
+
+
 
 func _on_join_fail(error_message):
 	message_label.text = "[center] Relay Server Status : CONNECTED \n JOIN FAILED : %s" %error_message
@@ -73,3 +92,12 @@ func _on_local_room_code_text_changed(new_text):
 func _on_local_ip_text_changed(new_text):
 	Relayconnect.typed_local_address = new_text
 
+
+
+func _on_leave_button_button_down():
+	$AnimationPlayer.play("ExitToRight")
+	$ExitTimerMainMenu.start()
+	
+	
+func _on_exit_timer_main_menu_timeout():
+	GameManager.change_scene_rpc("res://Scenes/main_menu.tscn",true)

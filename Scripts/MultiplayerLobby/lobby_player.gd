@@ -21,7 +21,7 @@ var prior_button : Button
 @export var selected_button : BaseButton : set = onSelectedButtonChanged
 
 var selected_character = "" : set = onSelectedCharacterChanged;
-@onready var multiplayer_lobby = get_parent()
+@onready var multiplayer_lobby = get_parent().get_parent()
 func _ready():
 	
 	$NetworkVarSync.multiplayer_id = multiplayer.get_unique_id()
@@ -61,6 +61,8 @@ func onPuppetMasterChange(new_puppet_master):
 	if is_instance_valid(puppet_master):
 		puppet_master.CharacterSelectedChangedSignal.disconnect(onSelectedCharacterChanged)
 		puppet_master.remove_from_group("in_game")
+		puppet_master.remove_from_group("p1")
+		puppet_master.remove_from_group("p2")
 
 	puppet_master = new_puppet_master
 	
@@ -87,6 +89,7 @@ func onPuppetMasterChange(new_puppet_master):
 	
 	
 	$NetworkVarSync.owner_id = puppet_master.network_node.owner_id
+	
 	
 	var device_text = "Keyboard"
 	if mobile:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhtmpyserhyp4"]
+[gd_scene load_steps=12 format=3 uid="uid://dhtmpyserhyp4"]
 
 [ext_resource type="Script" path="res://Scripts/Test_Room.gd" id="1_qef82"]
 [ext_resource type="Texture2D" uid="uid://dw5h1urcmgo4f" path="res://Assets/CloudsBack.png" id="2_0yo2g"]
@@ -6,6 +6,43 @@
 [ext_resource type="Texture2D" uid="uid://b1igchrhjrehd" path="res://Assets/Tileset.png" id="4_o5haf"]
 [ext_resource type="PackedScene" uid="uid://igx155esedds" path="res://Scenes/Networking/network_var_sync.tscn" id="5_0atl3"]
 [ext_resource type="Script" path="res://Scenes/PlayerCamera.gd" id="6_frp5n"]
+
+[sub_resource type="Animation" id="Animation_5cc6n"]
+resource_name = "FadeFromBlack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer3/FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p4qpn"]
+resource_name = "FadeToBlack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer3/FadeBlack:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_okmnj"]
+_data = {
+"FadeFromBlack": SubResource("Animation_5cc6n"),
+"FadeToBlack": SubResource("Animation_p4qpn")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq0cu"]
 texture = ExtResource("4_o5haf")
@@ -222,6 +259,15 @@ sources/0 = SubResource("TileSetAtlasSource_jq0cu")
 script = ExtResource("1_qef82")
 winner_label = NodePath("CanvasLayer2/Control2/Control/WINNER_LABEL")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_okmnj")
+}
+
+[node name="ExitToLobbyTimer" type="Timer" parent="."]
+
+[node name="ExitToMainMenuTimer" type="Timer" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -315,3 +361,19 @@ position = Vector2(-54, -153)
 reliable_sync_vars = {
 NodePath(".."): ["text"]
 }
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="FadeBlack" type="ColorRect" parent="CanvasLayer3"]
+z_index = 1000
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[connection signal="timeout" from="ExitToLobbyTimer" to="." method="_on_exit_to_lobby_timer_timeout"]
+[connection signal="timeout" from="ExitToMainMenuTimer" to="." method="_on_exit_to_main_menu_timer_timeout"]
